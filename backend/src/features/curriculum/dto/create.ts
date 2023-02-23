@@ -178,6 +178,23 @@ class Link {
   @IsUrl()
   href: string
 }
+
+class Portfolio {
+  @IsString()
+  name: string
+
+  @IsString()
+  @IsUrl()
+  link: string
+
+  @IsString()
+  icon: string
+
+  @IsString()
+  @IsOptional()
+  description: string
+}
+
 export class CreateCurriculumDto {
   @IsEnum(CivilState)
   civil_state: CivilState
@@ -231,4 +248,10 @@ export class CreateCurriculumDto {
   @Type(() => Link)
   @IsArray()
   links: Link[]
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => Portfolio)
+  @IsArray()
+  portfolios: Portfolio[]
 }
