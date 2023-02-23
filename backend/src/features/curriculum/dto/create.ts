@@ -228,7 +228,11 @@ export class CreateCurriculumDto {
 
   @IsOptional()
   @IsBoolean()
-  is_pcd?: string
+  is_pcd?: boolean
+
+  @IsOptional()
+  @IsBoolean()
+  searchable?: boolean
 
   @IsOptional()
   @ValidateNested({ each: true })

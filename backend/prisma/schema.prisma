@@ -155,7 +155,7 @@ model Portfolio {
 
   name String
   link String
-  icone String
+  icon String
   description String? @db.Char(500)
 
   
