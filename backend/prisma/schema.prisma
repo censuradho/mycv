@@ -55,7 +55,7 @@ model Curriculum {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  @@index([public_email, number], type: Hash)
+  @@index([public_email], type: Hash)
   @@map("curriculums")
 }
 
@@ -93,7 +93,7 @@ model Experience {
   is_main Boolean @default(false)
 
   office String
-  description String? 
+  description String? @db.Char(500)
   company_site String?
 
   curriculum  Curriculum @relation(fields: [curriculum_id], references: [id], onDelete: Cascade)
@@ -139,7 +139,7 @@ model Link {
   id String @id
 
   name String
-  description String?
+  description String? @db.Char(500)
   icon String
   href String
 
@@ -157,7 +157,7 @@ model Portfolio {
   name String
   link String
   icone String
-  description String?
+  description String? @db.Char(500)
 
   
   curriculum  Curriculum @relation(fields: [curriculum_id], references: [id], onDelete: Cascade)
@@ -181,7 +181,7 @@ model Address {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  @@index([country, city, region], type: Hash)
+  @@index([country, city, region])
 
   @@map("addresses")
 }
