@@ -195,6 +195,17 @@ class Portfolio {
   description: string
 }
 
+class Address {
+  @IsString()
+  country: string
+
+  @IsString()
+  city: string
+
+  @IsString()
+  region: string
+}
+
 export class CreateCurriculumDto {
   @IsEnum(CivilState)
   civil_state: CivilState
@@ -254,4 +265,8 @@ export class CreateCurriculumDto {
   @Type(() => Portfolio)
   @IsArray()
   portfolios: Portfolio[]
+
+  @ValidateNested()
+  @Type(() => Address)
+  address: Address
 }
