@@ -146,6 +146,11 @@ class Language {
   @IsEnum(LanguageLevel)
   writing: LanguageLevel
 }
+
+class Skill {
+  @IsString()
+  name: string
+}
 export class CreateCurriculumDto {
   @IsEnum(CivilState)
   civil_state: CivilState
@@ -187,4 +192,10 @@ export class CreateCurriculumDto {
   @Type(() => Language)
   @IsArray()
   languages: Language[]
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => Skill)
+  @IsArray()
+  skills: Skill[]
 }
