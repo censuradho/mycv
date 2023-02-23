@@ -91,6 +91,40 @@ class Education {
   is_main: boolean
 }
 
+enum ExperienceType {
+  professional = 'professional',
+  production = 'production',
+  volunteering = 'volunteering'
+}
+
+class Experience {
+  @IsEnum(ExperienceType)
+  type: ExperienceType
+
+  @IsString()
+  company_name: string
+
+  @IsString()
+  office: string
+
+  @IsDateString()
+  initial_date: string
+
+  @IsDateString()
+  final_date: string
+
+  @IsOptional()
+  @IsBoolean()
+  is_main: boolean
+
+  @IsOptional()
+  @IsString()
+  description: string
+
+  @IsOptional()
+  @IsString() 
+  company_site: string
+}
 
 export class CreateCurriculumDto {
   @IsEnum(CivilState)
@@ -118,5 +152,11 @@ export class CreateCurriculumDto {
 
   @ValidateNested({ each: true })
   @Type(() => Education)
+  @IsArray()
   education: Education[]
+
+  @ValidateNested({ each: true })
+  @Type(() => Experience)
+  @IsArray()
+  experience: Experience[]
 }

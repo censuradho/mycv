@@ -83,7 +83,7 @@ model Experience {
   id String @id
 
   type String
-  company String
+  company_name String
 
   
   initial_date DateTime
