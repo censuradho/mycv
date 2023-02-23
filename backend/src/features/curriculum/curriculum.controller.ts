@@ -1,6 +1,7 @@
-import { Controller, Post, Body, Get } from "@nestjs/common";
+import { Controller, Post, Body, Get, Query } from "@nestjs/common";
 import { CurriculumService } from "./curriculum.service";
 import { CreateCurriculumDto } from "./dto/create";
+import { QueryDto } from "./dto/query";
 
 @Controller('curriculum')
 export class CurriculumController {
@@ -12,12 +13,12 @@ export class CurriculumController {
   }
 
   @Get('me')
-  async me () {
-    return await this.service.me()
+  async me (@Query() query:  QueryDto) {
+    return await this.service.me(query)
   }
 
   @Get()
-  async findAll () {
-    return await this.service.findAll()
+  async findAll (@Query() query:  QueryDto) {
+    return await this.service.findAll(query)
   }
 }

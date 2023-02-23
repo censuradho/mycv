@@ -5,6 +5,7 @@ import { PrismaService } from "src/database/prisma.service";
 import { ForbiddenException } from "src/decorators/errors";
 import { AuthRequest } from "../auth/models";
 import { CreateCurriculumDto } from "./dto/create";
+import { QueryDto } from "./dto/query";
 import { CURRICULUM_ERRORS } from "./errors";
 
 @Injectable()
@@ -131,10 +132,55 @@ export class CurriculumService {
     })
   }
 
-  async me () {
+  async me (query?: QueryDto) {
     return this.prisma.curriculum.findFirst({
       where: {
-        user_id: this.request.user.id
+        AND: [
+          {
+            ...(query?.q && {
+              OR: [
+                {
+                  address: {
+                    OR: [
+                      { 
+                        city: {
+                          startsWith: query?.q
+                        }   
+                      },
+                      { 
+                        country: {
+                          startsWith: query?.q
+                        }  
+                      },
+                      { 
+                        region: {
+                          startsWith: query?.q
+                        }  
+                      },
+                    ]
+                  },
+                },
+                {
+                  languages: {
+                    some: {
+                      name: {
+                        startsWith: query?.q
+                      }
+                    }
+                  }
+                },
+                {
+                  public_email: {
+                    startsWith: query.q
+                  }
+                }
+              ]
+            })
+          },
+          {
+            user_id: this.request.user.id
+          },
+        ],
       },
       include: {
         address: true,
@@ -148,8 +194,49 @@ export class CurriculumService {
     })
   }
 
-  async findAll () {
+  async findAll (query?: QueryDto) {
     return await this.prisma.curriculum.findMany({
+      where: {
+        ...(query?.q && {
+          OR: [
+            {
+              address: {
+                OR: [
+                  { 
+                    city: {
+                      startsWith: query?.q
+                    }   
+                  },
+                  { 
+                    country: {
+                      startsWith: query?.q
+                    }  
+                  },
+                  { 
+                    region: {
+                      startsWith: query?.q
+                    }  
+                  },
+                ]
+              },
+            },
+            {
+              languages: {
+                some: {
+                  name: {
+                    startsWith: query?.q
+                  }
+                }
+              }
+            },
+            {
+              public_email: {
+                startsWith: query.q
+              }
+            }
+          ]
+        })
+      },
       include: {
         address: true,
         educations: true,
