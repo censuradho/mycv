@@ -14,8 +14,7 @@ export class UserService {
   async create(payload: CreateUserDto) {
     const {
       email,
-      first_name,
-      last_name,
+      username,
       password,
     } = payload
 
@@ -33,9 +32,7 @@ export class UserService {
       data: {
         id: randomUUID(),
         email,
-        first_name,
-        last_name,
-        username: `${first_name} ${last_name}`,
+        username,
         password: passwordHash,
         role: Role.User,
       }
