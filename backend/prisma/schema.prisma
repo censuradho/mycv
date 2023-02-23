@@ -67,7 +67,6 @@ model Education {
 
   level String
   institution_name String
-  name String
   situation String
 
   initial_date DateTime

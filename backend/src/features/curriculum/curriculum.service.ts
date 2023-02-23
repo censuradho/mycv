@@ -7,6 +7,6 @@ export class CurriculumService {
   constructor (private readonly prisma: PrismaService) {}
 
   async create (payload: CreateCurriculumDto) {
-    
+    return payload
   }
 }

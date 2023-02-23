@@ -55,15 +55,27 @@ enum SituationEducation {
   incomplete = 'incomplete'
 }
 
+enum CivilState {
+  doNotInform = 'doNotInform',
+  married = 'married',
+  single = 'single',
+  divorced = 'divorced'
+}
+
+enum ContactPreference {
+  phone = 'phone',
+  cellPhone = 'cellPhone',
+  whatsapp = 'whatsapp',
+  telegran = 'telegran',
+  email = 'email',
+}
+
 class Education {
   @IsEnum(EducationLevel)
   level: EducationLevel
 
   @IsString()
   institution_name: string
-
-  @IsString()
-  name: string
 
   @IsEnum(SituationEducation)
   situation: SituationEducation
@@ -79,10 +91,12 @@ class Education {
   is_main: boolean
 }
 
-export class CreateCurriculumDto {
-  @IsString()
-  civil_state: string
 
+export class CreateCurriculumDto {
+  @IsEnum(CivilState)
+  civil_state: CivilState
+
+  @IsOptional()
   @IsString()
   availability: string
 
@@ -95,8 +109,8 @@ export class CreateCurriculumDto {
   @IsString()
   public_email: string
   
-  @IsString()
-  contact_preference: string
+  @IsEnum(ContactPreference)
+  contact_preference: ContactPreference
 
   @IsOptional()
   @IsBoolean()
