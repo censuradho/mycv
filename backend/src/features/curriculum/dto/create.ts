@@ -1,5 +1,16 @@
 import { Type } from "class-transformer";
-import { IsArray, IsBoolean, IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength, ValidateNested } from "class-validator";
+import { 
+  IsArray, 
+  IsBoolean, 
+  IsDateString, 
+  IsEnum, 
+  IsNotEmpty, 
+  IsOptional, 
+  IsString, 
+  MinLength, 
+  ValidateNested,
+  IsUrl  
+} from "class-validator";
 
 enum EducationLevel {
   /*Ensino médio**/
@@ -151,6 +162,22 @@ class Skill {
   @IsString()
   name: string
 }
+
+class Link {
+  @IsString()
+  name: string
+
+  @IsOptional()
+  @IsString()
+  description: string
+
+  @IsString()
+  icon: string
+
+  @IsString()
+  @IsUrl()
+  href: string
+}
 export class CreateCurriculumDto {
   @IsEnum(CivilState)
   civil_state: CivilState
@@ -198,4 +225,10 @@ export class CreateCurriculumDto {
   @Type(() => Skill)
   @IsArray()
   skills: Skill[]
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => Link)
+  @IsArray()
+  links: Link[]
 }
