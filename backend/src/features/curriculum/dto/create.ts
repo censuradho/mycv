@@ -126,6 +126,26 @@ class Experience {
   company_site: string
 }
 
+enum LanguageLevel {
+  basic = 'basic',
+  intermediate = 'intermediate',
+  proficient = 'proficient',
+  advanced = 'advanced',
+  fluent = 'fluent'
+}
+class Language {
+  @IsString()
+  name: string
+
+  @IsEnum(LanguageLevel)
+  conversation: LanguageLevel
+
+  @IsEnum(LanguageLevel)
+  reading: LanguageLevel
+
+  @IsEnum(LanguageLevel)
+  writing: LanguageLevel
+}
 export class CreateCurriculumDto {
   @IsEnum(CivilState)
   civil_state: CivilState
@@ -150,13 +170,21 @@ export class CreateCurriculumDto {
   @IsBoolean()
   is_pcd?: string
 
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => Education)
   @IsArray()
-  education: Education[]
+  educations: Education[]
 
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => Experience)
   @IsArray()
-  experience: Experience[]
+  experiences: Experience[]
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => Language)
+  @IsArray()
+  languages: Language[]
 }
