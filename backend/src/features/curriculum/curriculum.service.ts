@@ -129,6 +129,36 @@ export class CurriculumService {
         }
       }
     })
-    return payload
+  }
+
+  async me () {
+    return this.prisma.curriculum.findFirst({
+      where: {
+        user_id: this.request.user.id
+      },
+      include: {
+        address: true,
+        educations: true,
+        experiences: true,
+        languages: true,
+        links: true,
+        portfolios: true,
+        skills: true
+      }
+    })
+  }
+
+  async findAll () {
+    return await this.prisma.curriculum.findMany({
+      include: {
+        address: true,
+        educations: true,
+        experiences: true,
+        languages: true,
+        links: true,
+        portfolios: true,
+        skills: true
+      }
+    })
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body, Get } from "@nestjs/common";
 import { CurriculumService } from "./curriculum.service";
 import { CreateCurriculumDto } from "./dto/create";
 
@@ -9,5 +9,15 @@ export class CurriculumController {
   @Post()
   async create (@Body() body: CreateCurriculumDto) {
     return await this.service.create(body)
+  }
+
+  @Get('me')
+  async me () {
+    return await this.service.me()
+  }
+
+  @Get()
+  async findAll () {
+    return await this.service.findAll()
   }
 }
