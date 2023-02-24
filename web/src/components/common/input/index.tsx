@@ -1,4 +1,4 @@
-import { ButtonIcon, Icon } from "@/components/common";
+import { Box, ButtonIcon, Icon, TextHelper } from "@/components/common";
 import { IconProps } from "@/components/common/icon/types";
 import { forwardRef, KeyboardEvent } from "react";
 
@@ -15,6 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     onLeftIconClick,
     onRightIconClick,
     defaultValue,
+    textHelper,
     mask,
     ...otherProps
   } = props;
@@ -23,11 +24,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const renderLabel = () => {
     if (!label) return null;
     return (
-      <Styles.Label
-        htmlFor={otherProps?.id || ""}
-      >
-        {label}
-      </Styles.Label>
+      <Box gap={0.5}>
+        <Styles.Label
+          htmlFor={otherProps?.id || ""}
+        >
+          {label}
+        </Styles.Label>
+        {textHelper && <TextHelper content={textHelper} />}
+      </Box>
     );
   };
 

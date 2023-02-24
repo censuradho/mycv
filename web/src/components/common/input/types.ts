@@ -28,6 +28,7 @@ export interface InputProps extends
   InputStylesProps {
   label?: string
   errorMessage?: string
+  textHelper?: string
   leftIcon?: IconProps
   rightIcon?: IconProps
   onRightIconClick?: () => void;

@@ -31,6 +31,9 @@ import {
 import {
   EnRss
 } from '@meronex/icons/en';
+import {
+  BsQuestion
+} from '@meronex/icons/bs';
 
 import {
   BsCodeSlash, BsFillEyeFill, BsFillEyeSlashFill
@@ -89,5 +92,6 @@ export const icons = {
   tag: AiFillTag,
   digital: RiNavigationLine,
   physical: FaBox,
-  arrowLeft: AiOutlineArrowLeft
+  arrowLeft: AiOutlineArrowLeft,
+  question: BsQuestion
 }
