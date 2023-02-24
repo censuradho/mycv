@@ -13,10 +13,9 @@ export const Container = styled('div', {
     }
   },
   input: {
-    borderColor: "transparent",
-    borderWidth: "1px",
+    border: 'none',
+    borderBottom: "2px solid transparent",
     width: "100%",
-    borderStyle: "solid",
     height: "3rem",
     outline: "none",
     padding: "0 1rem",
