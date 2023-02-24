@@ -1,4 +1,4 @@
-import { Box, ButtonIcon, MarkdownEditor, Switch } from "@/components/common";
+import { Box, ButtonIcon, DatePicker, MarkdownEditor, Switch } from "@/components/common";
 import { InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
@@ -65,6 +65,20 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               name={`experiences.${index}.company_site`}
             />
             <Switch label="Atual" />
+            <Box gap={1}>
+              <DatePicker 
+                onChange={() => {}} 
+                label="Início"
+                fullWidth
+                showMonthYearPicker
+              />
+              <DatePicker 
+                onChange={() => {}} 
+                label="Fim"
+                fullWidth
+                showMonthYearPicker
+              />
+            </Box>
             <MarkdownEditor 
               label="Descrição"
             />
