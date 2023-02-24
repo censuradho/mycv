@@ -6,7 +6,7 @@ import {
   AiOutlineClose, AiOutlineHome, AiOutlineMail, AiOutlinePlus, AiOutlineUser
 } from '@meronex/icons/ai';
 import {
-  BiCodeAlt, BiCommand, BilFacebookSquare, BilGithub,
+  BiCodeAlt, BiCommand, BiDotsVerticalRounded, BilFacebookSquare, BilGithub,
   BilInstagramAlt, BilSpotify, BilTwitter, BisDashboard,
   BisDownArrow, BisFilePdf, BisReport, BisShareAlt, BisUpArrow
 } from '@meronex/icons/bi';
@@ -18,6 +18,8 @@ import {
   FaDatabase, FaOpencart, FaStore, FaSuitcase
 } from '@meronex/icons/fa';
 import {
+  IosArrowDown,
+  IosArrowUp,
   IosTrendingUp,
   LogoWhatsapp
 } from '@meronex/icons/ios';
@@ -93,5 +95,8 @@ export const icons = {
   digital: RiNavigationLine,
   physical: FaBox,
   arrowLeft: AiOutlineArrowLeft,
-  question: BsQuestion
+  question: BsQuestion,
+  arrowDown: IosArrowDown,
+  arrowUp: IosArrowUp,
+  verticalDot: BiDotsVerticalRounded
 }
