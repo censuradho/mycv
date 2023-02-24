@@ -8,6 +8,7 @@ import { EmploymentHistoryProps } from "./types";
 
 import * as Styles from './styles'
 import { baseEmployment } from "../form";
+import { SwitchForm } from "@/components/common/hook-form/switch";
 
 export function EmploymentHistory (props: EmploymentHistoryProps) {
   const {
@@ -64,7 +65,11 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               register={register(`experiences.${index}.company_site`)}
               name={`experiences.${index}.company_site`}
             />
-            <Switch label="Atual" />
+            <SwitchForm
+              name={`experiences.${index}.is_main`}
+              control={control} 
+              label="Atual" 
+            />
             <Box gap={1}>
               <DatePickerForm
                 name={`experiences.${index}.initial_date`}
