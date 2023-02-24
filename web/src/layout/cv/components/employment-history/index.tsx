@@ -91,7 +91,8 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
         <ButtonIcon 
           type="button"
           label="delete" 
-          icon={{ name: 'delete' }} 
+          icon={{ name: 'delete' }}
+          onClick={() => remove(index)}
         />
       </Box>
     )
