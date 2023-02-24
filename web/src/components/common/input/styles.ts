@@ -33,7 +33,7 @@ export const Input = styled("input", {
   },
   
   "&:focus": {
-    borderColor: "$heading",
+    borderColor: "$primary",
   },
 
   variants: {
