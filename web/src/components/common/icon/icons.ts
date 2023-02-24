@@ -3,7 +3,7 @@ import {
   AiFillLock,
   AiFillTag,
   AiOutlineArrowLeft,
-  AiOutlineClose, AiOutlineHome, AiOutlineMail, AiOutlinePlus, AiOutlineUser
+  AiOutlineClose, AiOutlineDelete, AiOutlineHome, AiOutlineMail, AiOutlinePlus, AiOutlineUser
 } from '@meronex/icons/ai';
 import {
   BiCodeAlt, BiCommand, BiDotsVerticalRounded, BilFacebookSquare, BilGithub,
@@ -98,5 +98,6 @@ export const icons = {
   question: BsQuestion,
   arrowDown: IosArrowDown,
   arrowUp: IosArrowUp,
-  verticalDot: BiDotsVerticalRounded
+  verticalDot: BiDotsVerticalRounded,
+  delete: AiOutlineDelete
 }

@@ -1,4 +1,4 @@
-import { Box } from "@/components/common";
+import { Box, ButtonIcon, MarkdownEditor } from "@/components/common";
 import { InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
@@ -20,33 +20,63 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
   const {
     fields,
     append,
-    remove 
+    remove,
   } = useFieldArray({
     control,
     name: 'experiences',
     keyName: '_id'
   })
 
-  const renderFields = fields.map((value, index) => (
-    <AccordionView 
-      key={value._id} 
-      title="(Não especificado)"
-      onClickMenu={() => {}}
-    >
-      <Styles.Container>
-        <InputForm 
-          label="Cargo"
-          register={register(`experience.${index}.office`)}
-          name={`experiences.${index}.office`}
+  const renderFields = fields.map((value, index) => {
+    const _value = value as any
+
+   
+    return (
+      <Box key={_value._id} alignItems="flexStart" gap={1}>
+        <AccordionView 
+          title={_value?.office || '(Não especificado)'}
+        >
+          <Styles.Container>
+            <Box
+              gap={1}
+              flexDirection={{
+                '@initial': 'column',
+                '@table-min': 'row'
+              }}
+            >
+              <InputForm 
+                label="Cargo"
+                fullWidth
+                id={`experience.${index}.office`}
+                register={register(`experience.${index}.office`)}
+                name={`experiences.${index}.office`}
+              />
+              <InputForm 
+                label="Nome da empresa"
+                fullWidth
+                register={register(`experience.${index}.company_name`)}
+                name={`experiences.${index}.company_name`}
+              />
+            </Box>
+            <InputForm 
+              label="Site da empresa"
+              fullWidth
+              register={register(`experience.${index}.company_site`)}
+              name={`experiences.${index}.company_site`}
+            />
+            <MarkdownEditor 
+              label="Descrição"
+            />
+          </Styles.Container>
+        </AccordionView>
+        <ButtonIcon 
+          type="button"
+          label="delete" 
+          icon={{ name: 'delete' }} 
         />
-        <InputForm 
-          label="Nome da empresa"
-          register={register(`experience.${index}.company_name`)}
-          name={`experiences.${index}.company_name`}
-        />
-      </Styles.Container>
-    </AccordionView>
-  ))
+      </Box>
+    )
+  })
 
   return (
     <>

@@ -10,11 +10,14 @@ const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 export function MarkdownEditor (props: MarkDownEditorProps) {
   const {
-    onChange
+    onChange,
+    errorMessage,
+    label
   } = props
 
   return (
     <Styles.Container>
+      <Styles.Label>{label}</Styles.Label>
       <MdEditor 
         style={{ height: '300px' }} 
         renderHTML={text => mdParser.render(text)} 
@@ -25,6 +28,8 @@ export function MarkdownEditor (props: MarkDownEditorProps) {
           md: true
         }}
       />
+      <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
+
     </Styles.Container>
   )
 }
