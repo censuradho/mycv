@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { PrismaService } from "src/database/prisma.service";
 import { ForbiddenException } from "src/decorators/errors";
 import { AuthRequest } from "../auth/models";
+import { AvatarService } from "../avatar/avatar.service";
 import { CreateCurriculumDto } from "./dto/create";
 import { QueryDto } from "./dto/query";
 import { CURRICULUM_ERRORS } from "./errors";
@@ -12,7 +13,8 @@ import { CURRICULUM_ERRORS } from "./errors";
 export class CurriculumService {
   constructor (
     private readonly prisma: PrismaService,
-    @Inject(REQUEST) private readonly request: AuthRequest
+    private readonly avatar: AvatarService,
+    @Inject(REQUEST) private readonly request: AuthRequest,
   ) {}
 
   async create (payload: CreateCurriculumDto) {
@@ -248,4 +250,9 @@ export class CurriculumService {
       }
     })
   }
+
+  async avatarUpload (file: Express.Multer.File) {
+    await this.avatar.upload(file, this.request.user.id)
+  }
 }
+

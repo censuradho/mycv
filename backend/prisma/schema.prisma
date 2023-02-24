@@ -20,6 +20,7 @@ model User {
   password String
   role String
 
+  avatar Avatar?
   curriculum Curriculum?
 
   @@index([username], type: Hash)
@@ -167,6 +168,19 @@ model Portfolio {
   @@map("portfolios")
 }
 
+model Avatar {
+  id String @id
+  width Float
+  height Float
+  url String
+  format String?
+  user User? @relation(fields: [user_id], references: [id])
+  user_id String? @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  @@map("files")
+}
 
 model Address {
   id String @id

@@ -1,11 +1,15 @@
-import { Controller, Post, Body, Get, Query } from "@nestjs/common";
+import { Controller, Post, Body, Get, Query, UseInterceptors } from "@nestjs/common";
+import { UploadedFile } from "@nestjs/common/decorators/http/route-params.decorator";
+import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
 import { CurriculumService } from "./curriculum.service";
 import { CreateCurriculumDto } from "./dto/create";
 import { QueryDto } from "./dto/query";
 
 @Controller('curriculum')
 export class CurriculumController {
-  constructor (private readonly service: CurriculumService) {}
+  constructor (
+    private readonly service: CurriculumService
+  ) {}
   
   @Post()
   async create (@Body() body: CreateCurriculumDto) {
@@ -20,5 +24,11 @@ export class CurriculumController {
   @Get()
   async findAll (@Query() query:  QueryDto) {
     return await this.service.findAll(query)
+  }
+
+  @Post('/avatar/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return this.service.avatarUpload(file)
   }
 }
