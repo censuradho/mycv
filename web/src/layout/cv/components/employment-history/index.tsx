@@ -1,5 +1,5 @@
 import { Box, ButtonIcon, DatePicker, MarkdownEditor, Select, Switch } from "@/components/common";
-import { InputForm } from "@/components/common/hook-form";
+import { DatePickerForm, InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
 import { AccordionView } from "../accordion-view";
@@ -48,35 +48,39 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 label="Cargo"
                 fullWidth
                 id={`experience.${index}.office`}
-                register={register(`experience.${index}.office`)}
+                register={register(`experiences.${index}.office`)}
                 name={`experiences.${index}.office`}
               />
               <InputForm 
                 label="Nome da empresa"
                 fullWidth
-                register={register(`experience.${index}.company_name`)}
+                register={register(`experiences.${index}.company_name`)}
                 name={`experiences.${index}.company_name`}
               />
             </Box>
             <InputForm 
               label="Site da empresa"
               fullWidth
-              register={register(`experience.${index}.company_site`)}
+              register={register(`experiences.${index}.company_site`)}
               name={`experiences.${index}.company_site`}
             />
             <Switch label="Atual" />
             <Box gap={1}>
-              <DatePicker 
-                onChange={() => {}} 
+              <DatePickerForm
+                name={`experiences.${index}.initial_date`}
+                control={control}
                 label="Início"
                 fullWidth
                 showMonthYearPicker
+                dateFormat="MMM, yyyy"
               />
-              <DatePicker 
-                onChange={() => {}} 
+              <DatePickerForm
+                name={`experiences.${index}.final_date`}
                 label="Fim"
                 fullWidth
+                control={control}
                 showMonthYearPicker
+                dateFormat="MMM, yyyy"
               />
             </Box>
             <MarkdownEditor 

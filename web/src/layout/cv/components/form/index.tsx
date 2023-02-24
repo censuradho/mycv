@@ -1,6 +1,8 @@
 import { AutoComplete, Box, MarkdownEditor, Typography } from '@/components/common'
 import { InputForm } from '@/components/common/hook-form'
 import { useForm } from 'react-hook-form'
+import { Button } from '@/components/common'
+
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
 
@@ -19,16 +21,22 @@ export function Form () {
   const { 
     register,
     control,
+    handleSubmit,
     formState: { errors }
   } = useForm({
     defaultValues: {
       experiences: [baseEmployment]
     }
   })
+
+  const onSubmit = async (data: any) => {
+    console.log(data)
+  }
+
   
   return (
     <Styles.Container>
-      <Styles.Form>
+      <Styles.Form onSubmit={handleSubmit(onSubmit)}>
         <Box flexDirection="column" gap={2}>
           <Styles.SectionTitle>Informações pessoais</Styles.SectionTitle>
           <Box flexDirection="column" gap={1}>
@@ -95,6 +103,7 @@ export function Form () {
             errors={errors}
           />
         </Box>
+        <Button>Submit</Button>
       </Styles.Form>
     </Styles.Container>
   )

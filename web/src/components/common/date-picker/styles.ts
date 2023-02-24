@@ -30,6 +30,7 @@ export const Container = styled('div', {
     "&:focus": {
       borderColor: "$primary",
     },
+
   
   },
   '.react-datepicker': {
@@ -57,8 +58,10 @@ export const Container = styled('div', {
   '.react-datepicker__month-text--keyboard-selected': {
     background: '$primary',
     color: '$ancesst8',
-    '&:hover': {
-      color: '$heading'
+    '&:hover, &focus': {
+      background: '$primary !important',
+      color: '$ancesst8',
+      opacity: 0.8
     }
   }
 })
