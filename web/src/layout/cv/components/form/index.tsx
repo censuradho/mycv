@@ -1,7 +1,7 @@
 import * as Styles from './styles'
 import { useForm } from 'react-hook-form'
 import { InputForm } from '@/components/common/hook-form'
-import { Box } from '@/components/common'
+import { Box, MarkdownEditor, Typography } from '@/components/common'
 
 export function Form () {
   const { 
@@ -62,6 +62,11 @@ export function Form () {
               register={register('address.city')}
             />
           </Box>
+          <Box flexDirection="column" gap={0.5}>
+            <Styles.SectionTitle>Resumo profissional</Styles.SectionTitle>
+            <Typography as="p" size="xsm">Escreva 2-4 frases curtas e enérgicas para interessar o leitor! Mencione sua função, experiência e o mais importante - suas maiores conquistas, melhores qualidades e habilidades.</Typography>
+          </Box>
+          <MarkdownEditor />
         </Box>
       </Styles.Form>
     </Styles.Container>
