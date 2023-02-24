@@ -1,4 +1,4 @@
-import { Box, ButtonIcon, MarkdownEditor } from "@/components/common";
+import { Box, ButtonIcon, MarkdownEditor, Switch } from "@/components/common";
 import { InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
@@ -64,6 +64,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               register={register(`experience.${index}.company_site`)}
               name={`experiences.${index}.company_site`}
             />
+            <Switch label="Atual" />
             <MarkdownEditor 
               label="Descrição"
             />
