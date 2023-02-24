@@ -27,13 +27,13 @@ export const Input = styled("input", {
   fontWeight: 500,
   
   "&::placeholder": {
-    color: "$heading",
+    color: "$ancesst6",
     fontSize: "0.8rem",
     fontWeight: "400",
   },
   
   "&:focus": {
-    borderColor: "$ancesst0",
+    borderColor: "$heading",
   },
 
   variants: {
