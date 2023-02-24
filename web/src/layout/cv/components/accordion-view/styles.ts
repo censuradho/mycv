@@ -68,7 +68,7 @@ export const Trigger = styled(Accordion.Trigger, {
   color: '$heading',
   fontWeight: 600,
 
-  '&:hover': {
+  '&:hover, &:focus': {
     color: '$primary'
   }
 });

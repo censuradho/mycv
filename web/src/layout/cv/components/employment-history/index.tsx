@@ -1,4 +1,4 @@
-import { Box, ButtonIcon, DatePicker, MarkdownEditor, Switch } from "@/components/common";
+import { Box, ButtonIcon, DatePicker, MarkdownEditor, Select, Switch } from "@/components/common";
 import { InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 

@@ -1,4 +1,4 @@
-import { Box, MarkdownEditor, Typography } from '@/components/common'
+import { AutoComplete, Box, MarkdownEditor, Typography } from '@/components/common'
 import { InputForm } from '@/components/common/hook-form'
 import { useForm } from 'react-hook-form'
 import { EmploymentHistory } from '../employment-history'
@@ -74,10 +74,10 @@ export function Form () {
                 register={register('phone')}
               />
             </Box>
-            <InputForm 
+            <AutoComplete 
               label="Cidade"
-              fullWidth
-              register={register('address.city')}
+              // fullWidth
+              // register={register('address.city')}
             />
           </Box>
           <Box flexDirection="column" gap={0.5}>
