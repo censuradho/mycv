@@ -15,7 +15,6 @@ export function AutoCompleteForm (props: AutoCompleteFormProps) {
       name={otherProps.name}
       render={({ field }) => (
         <AutoComplete
-          value={field.value}
           getItemValue={(value: any) => keyName ? value[keyName] : value}
           onSelect={(value, item) => field.onChange(value)}
           {...otherProps}
