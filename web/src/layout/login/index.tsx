@@ -27,12 +27,8 @@ export function LoginLayout () {
   })
 
   const onSubmit = async (data: SignInWithEmailPasswordRequest) => {
-    try {
-      await onSignInWithEmailPassword(data)
-      router.push(paths.home)
-    } finally {
-
-    }
+    await onSignInWithEmailPassword(data)
+    router.push(paths.cv.me)
   }
 
   return (

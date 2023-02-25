@@ -115,6 +115,7 @@ export function Form () {
               onChange={handleSearch}
               items={options}
               value={search}
+              onSelect={value => setSearch(value)}
             />
           </Box>
           <Box flexDirection="column" gap={0.5}>

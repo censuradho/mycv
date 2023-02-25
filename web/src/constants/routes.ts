@@ -1,13 +1,7 @@
 export const paths = {
   home: '/',
-  marketplace: {
-    create: '/marketplace/create',
-    item: '/marketplace/create/:categoryId'
-  },
-  app: {
-    product: '/app/product',
-    report: '/app/relatorio',
-
+  cv: {
+    me: '/cv/@me'
   },
   auth: {
     signIn: 'login',

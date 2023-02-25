@@ -6,6 +6,7 @@ export function AutoCompleteForm (props: AutoCompleteFormProps) {
   const {
     control,
     keyName,
+    onSelect,
     ...otherProps
   } = props
 
@@ -16,7 +17,10 @@ export function AutoCompleteForm (props: AutoCompleteFormProps) {
       render={({ field }) => (
         <AutoComplete
           getItemValue={(value: any) => keyName ? value[keyName] : value}
-          onSelect={(value, item) => field.onChange(value)}
+          onSelect={(value, item) => {
+            field.onChange(value)
+            onSelect?.(value, item)
+          }}
           {...otherProps}
         />
       )}

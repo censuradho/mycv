@@ -1,5 +1,5 @@
 import { AutoCompleteProps } from "@/components/common/auto-complete/types";
-import { Control, FieldValues } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 export interface AutoCompleteFormProps extends Pick<AutoCompleteProps,
   'onChange'  
@@ -8,6 +8,7 @@ export interface AutoCompleteFormProps extends Pick<AutoCompleteProps,
   | 'fullWidth'
   |'errorMessage'
   | 'value'
+  | 'onSelect'
 > {
   control: Control<any, any> | undefined
   name: string
