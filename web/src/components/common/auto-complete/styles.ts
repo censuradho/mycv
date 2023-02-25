@@ -46,7 +46,7 @@ export const ErrorMessage = styled('span', {
 
 
 export const Item = styled('div', {
-  background: '$foreground',
+  background: '$background',
   padding: "0 1rem",
   height: "3rem",
   display: 'flex',

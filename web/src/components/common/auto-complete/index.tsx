@@ -7,28 +7,21 @@ export function AutoComplete (props: AutoCompleteProps) {
   const { 
     label,
     errorMessage,
-    fullWidth,
-    id
+    items,
+    ...otherProps
   } = props
 
   return (
     <Styles.Container>
       <Styles.Label>{label}</Styles.Label>
       <RootAutocomplete
-        getItemValue={(item) => item.label}
-        items={[
-          { label: 'apple' },
-          { label: 'banana' },
-          { label: 'pear' }
-        ]}
+        items={items}
         renderItem={(item, isHighlighted) =>
           <Styles.Item active={isHighlighted}>
             {item.label}
           </Styles.Item>
         }
-        value={''}
-        onChange={(e) => {}}
-        onSelect={(val) => {}}
+        {...otherProps}
       />
       <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
     </Styles.Container>

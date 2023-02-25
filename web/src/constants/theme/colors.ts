@@ -14,10 +14,11 @@ const teste = {
   ancesst2: '#f8f8f8',
   ancesst3: '#f3f3f3',
   ancesst4: '#ededed',
-  ancesst5: '#6f6f6f',
-  ancesst6: '#858585',
-  ancesst7: '#6f6f6f',
-  ancesst8: '#171717',
+  ancesst5: '#eff2f9',
+  ancesst6: '#6f6f6f',
+  ancesst7: '#858585',
+  ancesst8: '#6f6f6f',
+  ancesst9: '#171717',
 }
 
 export const colors = {
@@ -29,9 +30,9 @@ export const colors = {
   tertiary: '#BBE6EC',
   quaternary: '#6DD4C1',
   error: '#D61355',
-  background: ancesst.ancesst8,
+  background: '#fff',
   heading: ancesst.ancesst1,
-  foreground: ancesst.ancesst7,
+  foreground: '#eff2f9',
   text: ancesst.ancesst4,
   border: ancesst.ancesst6,
   backgroundOverlay: 'rgba(225, 225, 225, 0.3)'

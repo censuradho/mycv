@@ -1,8 +1,7 @@
-import { AutoComplete, Box, MarkdownEditor, Typography } from '@/components/common'
+import { AutoComplete, Box, MarkdownEditor, Typography, Button } from '@/components/common'
 import { InputForm } from '@/components/common/hook-form'
+import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useForm } from 'react-hook-form'
-import { Button } from '@/components/common'
-
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
 
@@ -82,10 +81,16 @@ export function Form () {
                 register={register('phone')}
               />
             </Box>
-            <AutoComplete 
+            <AutoCompleteForm
+              control={control}
+              name="city"
               label="Cidade"
-              // fullWidth
-              // register={register('address.city')}
+              keyName="value"
+              items={[
+                { label: 'apple', value: 'apple' },
+                { label: 'banana', value: 'apple' },
+                { label: 'pear', value: 'apple' }
+              ]}
             />
           </Box>
           <Box flexDirection="column" gap={0.5}>
