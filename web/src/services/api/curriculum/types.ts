@@ -5,6 +5,15 @@ enum CivilState {
   divorced = 'divorced'
 }
 
+export interface Experience {
+  employer: string,
+  title: string,
+  initial_date: string,
+  final_date: string,
+  description: string,
+  is_main: boolean
+}
+
 export interface Curriculum {
   id: string
   views: number
@@ -18,6 +27,11 @@ export interface Curriculum {
   first_name: string
   last_name: string
   is_pcd: boolean
+  experiences?: Array<Experience>
 }
 
-export interface CreateCurriculum extends Curriculum {}
+export interface CreateCurriculum extends Omit<Curriculum,
+  'searchable'
+  | 'views'
+> {
+}

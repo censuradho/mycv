@@ -48,23 +48,17 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               <InputForm 
                 label="Cargo"
                 fullWidth
-                id={`experience.${index}.office`}
+                id={`experience.${index}.title`}
                 register={register(`experiences.${index}.office`)}
                 name={`experiences.${index}.office`}
               />
               <InputForm 
                 label="Nome da empresa"
                 fullWidth
-                register={register(`experiences.${index}.company_name`)}
-                name={`experiences.${index}.company_name`}
+                register={register(`experiences.${index}.employer`)}
+                name={`experiences.${index}.employer`}
               />
             </Box>
-            <InputForm 
-              label="Site da empresa"
-              fullWidth
-              register={register(`experiences.${index}.company_site`)}
-              name={`experiences.${index}.company_site`}
-            />
             <SwitchForm
               name={`experiences.${index}.is_main`}
               control={control} 

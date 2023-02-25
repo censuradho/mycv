@@ -1,24 +1,26 @@
-import { AutoComplete, Box, MarkdownEditor, Typography, Button } from '@/components/common'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { Box, Button, MarkdownEditor, Typography } from '@/components/common'
 import { InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
+import { CreateCurriculum, Experience } from '@/services/api/curriculum/types'
 import { cityService } from '@/services/local-api/city'
 import { GetCityResponse } from '@/services/local-api/city/types'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
-import { CvFormData } from './types'
+import { curriculumValidationSchema } from './validations'
 
-export const baseEmployment = {
-  type: '',
-  company_name: '',
-  office: '',
+export const baseEmployment: Experience = {
+  employer: '',
+  title: '',
   initial_date: '',
   final_date: '',
   is_main: false,
   description: '',
-  company_site: ''
 }
 
 export function Form () {
@@ -27,7 +29,8 @@ export function Form () {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm<CvFormData>({
+  } = useForm<CreateCurriculum>({
+    resolver: yupResolver(curriculumValidationSchema),
     defaultValues: {
       experiences: [baseEmployment]
     }
@@ -59,6 +62,8 @@ export function Form () {
     if (value.length > 3) getCities(value)
   }
 
+  console.log(errors)
+
   return (
     <Styles.Container>
       <Styles.Form onSubmit={handleSubmit(onSubmit)}>
@@ -69,7 +74,9 @@ export function Form () {
               label="Ocupação"
               fullWidth
               textHelper="Add seu cargo como ‘Senior Marketer’ ou ‘Sales Executive’ para que você está aplicando"
-              register={register('occupation')}
+              register={register('title')}
+              placeholder="e.g Software Developer"
+              errorMessage={errors?.title?.message}
             />
             <Box 
               gap={1}
@@ -82,11 +89,13 @@ export function Form () {
                 label="Primeiro nome"
                 fullWidth
                 register={register('first_name')}
+                errorMessage={errors?.first_name?.message}
               />
               <InputForm 
                 label="Sobrenome"
                 fullWidth
                 register={register('last_name')}
+                errorMessage={errors?.last_name?.message}
               />
             </Box>
             <Box 
@@ -100,22 +109,25 @@ export function Form () {
                 label="E-mail"
                 fullWidth
                 register={register('public_email')}
+                errorMessage={errors?.public_email?.message}
               />
               <InputForm 
                 label="Telefone"
                 fullWidth
                 register={register('phone')}
+                errorMessage={errors?.phone?.message}
               />
             </Box>
             <AutoCompleteForm
               control={control}
-              name="city"
+              name="address.city"
               label="Cidade"
               keyName="value"
               onChange={handleSearch}
               items={options}
               value={search}
               onSelect={value => setSearch(value)}
+              // errorMessage={errors?.city?.message}
             />
           </Box>
           <Box flexDirection="column" gap={0.5}>
