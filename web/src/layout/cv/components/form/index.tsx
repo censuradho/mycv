@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
+import { CvFormData } from './types'
 
 export const baseEmployment = {
   type: '',
@@ -26,7 +27,7 @@ export function Form () {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm({
+  } = useForm<CvFormData>({
     defaultValues: {
       experiences: [baseEmployment]
     }
@@ -54,7 +55,7 @@ export function Form () {
     setSearch(value)
 
     if (value.length === 0) setCities([])
-    
+
     if (value.length > 3) getCities(value)
   }
 
@@ -68,7 +69,7 @@ export function Form () {
               label="Ocupação"
               fullWidth
               textHelper="Add seu cargo como ‘Senior Marketer’ ou ‘Sales Executive’ para que você está aplicando"
-              register={register('first_name')}
+              register={register('occupation')}
             />
             <Box 
               gap={1}
@@ -98,7 +99,7 @@ export function Form () {
               <InputForm 
                 label="E-mail"
                 fullWidth
-                register={register('email')}
+                register={register('public_email')}
               />
               <InputForm 
                 label="Telefone"

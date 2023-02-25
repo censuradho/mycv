@@ -3,7 +3,7 @@ export class User {
   username: string
   email: string
   password: string
-  created_at: string;
+  created_at: string
   updated_at: string
   role: string
 }

@@ -1,16 +1,14 @@
-import { Type } from "class-transformer";
-import { 
-  IsArray, 
-  IsBoolean, 
-  IsDateString, 
-  IsEnum, 
-  IsNotEmpty, 
-  IsOptional, 
-  IsString, 
-  MinLength, 
+import { Type } from 'class-transformer'
+import {
+  IsArray,
+  IsBoolean,
+  IsDateString,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUrl,
   ValidateNested,
-  IsUrl  
-} from "class-validator";
+} from 'class-validator'
 
 enum EducationLevel {
   /*Ensino médio**/
@@ -50,7 +48,7 @@ enum EducationLevel {
   /*Extensão**/
   extension = 'extension',
   /*Intercambio**/
-  exchange = 'exchange'
+  exchange = 'exchange',
 }
 
 enum SituationEducation {
@@ -63,14 +61,14 @@ enum SituationEducation {
   /*Pausado**/
   paused = 'paused',
   /*Incompleto**/
-  incomplete = 'incomplete'
+  incomplete = 'incomplete',
 }
 
 enum CivilState {
   doNotInform = 'doNotInform',
   married = 'married',
   single = 'single',
-  divorced = 'divorced'
+  divorced = 'divorced',
 }
 
 enum ContactPreference {
@@ -102,25 +100,17 @@ class Education {
   is_main: boolean
 }
 
-enum ExperienceType {
-  professional = 'professional',
-  production = 'production',
-  volunteering = 'volunteering'
-}
-
 class Experience {
-  @IsEnum(ExperienceType)
-  type: ExperienceType
+  @IsString()
+  employer: string
 
   @IsString()
-  company_name: string
-
-  @IsString()
-  office: string
+  title: string
 
   @IsDateString()
   initial_date: string
 
+  @IsOptional()
   @IsDateString()
   final_date: string
 
@@ -131,10 +121,6 @@ class Experience {
   @IsOptional()
   @IsString()
   description: string
-
-  @IsOptional()
-  @IsString() 
-  company_site: string
 }
 
 enum LanguageLevel {
@@ -142,7 +128,7 @@ enum LanguageLevel {
   intermediate = 'intermediate',
   proficient = 'proficient',
   advanced = 'advanced',
-  fluent = 'fluent'
+  fluent = 'fluent',
 }
 class Language {
   @IsString()
@@ -201,9 +187,6 @@ class Address {
 
   @IsString()
   city: string
-
-  @IsString()
-  region: string
 }
 
 export class CreateCurriculumDto {
@@ -218,11 +201,20 @@ export class CreateCurriculumDto {
   presentation: string
 
   @IsString()
-  number: string
+  phone: string
+
+  @IsString()
+  title: string
 
   @IsString()
   public_email: string
-  
+
+  @IsString()
+  first_name: string
+
+  @IsString()
+  last_name: string
+
   @IsEnum(ContactPreference)
   contact_preference: ContactPreference
 

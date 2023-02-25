@@ -1,25 +1,25 @@
-import { Injectable } from "@nestjs/common";
-import { UserService } from "../user/user.service";
+import { Injectable } from '@nestjs/common'
+import { UserService } from '../user/user.service'
 import * as bcrypt from 'bcrypt'
-import { User } from "../user/model/user";
-import { JwtService } from "@nestjs/jwt";
-import { UserPayload } from "./models/user-payload";
-import { CreateUserDto } from "../user/dto/create";
-import { UnauthorizedException } from "src/decorators/errors";
-import { USER_ERRORS } from "../user/errors";
+import { User } from '../user/model/user'
+import { JwtService } from '@nestjs/jwt'
+import { UserPayload } from './models/user-payload'
+import { CreateUserDto } from '../user/dto/create'
+import { UnauthorizedException } from 'src/decorators/errors'
+import { USER_ERRORS } from '../user/errors'
 
 @Injectable()
 export class AuthService {
-  constructor (
+  constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService
   ) {}
 
-  async login (user: User) {
+  async login(user: User) {
     const payload: UserPayload = {
       sub: user.id,
       email: user.email,
-      role: user.role
+      role: user.role,
     }
 
     return {
@@ -38,20 +38,16 @@ export class AuthService {
     if (!isValidPassword)
       throw new UnauthorizedException(USER_ERRORS.EMAIL_PASSWORD_INCORRECT)
 
-
     return {
       ...user,
       password: undefined,
     }
   }
 
-
   async revalidate(email: string) {
     const user = await this.userService.findByEmail(email)
 
-    if (!user)
-      throw new UnauthorizedException(USER_ERRORS.USER_NOT_FOUND)
-
+    if (!user) throw new UnauthorizedException(USER_ERRORS.USER_NOT_FOUND)
 
     const payload: UserPayload = {
       sub: user.id,

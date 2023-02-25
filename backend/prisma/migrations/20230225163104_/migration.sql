@@ -17,10 +17,13 @@ CREATE TABLE "curriculums" (
     "searchable" BOOLEAN NOT NULL DEFAULT true,
     "civil_state" TEXT NOT NULL,
     "availability" TEXT NOT NULL,
+    "occupation" TEXT NOT NULL,
     "presentation" TEXT NOT NULL,
-    "number" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
     "public_email" TEXT NOT NULL,
     "contact_preference" TEXT NOT NULL,
+    "first_name" TEXT NOT NULL,
+    "last_name" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
     "is_pcd" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -35,7 +38,6 @@ CREATE TABLE "educations" (
     "curriculum_id" TEXT NOT NULL,
     "level" TEXT NOT NULL,
     "institution_name" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
     "situation" TEXT NOT NULL,
     "initial_date" TIMESTAMP(3) NOT NULL,
     "final_date" TIMESTAMP(3),
@@ -50,7 +52,7 @@ CREATE TABLE "educations" (
 CREATE TABLE "experiences" (
     "id" TEXT NOT NULL,
     "type" TEXT NOT NULL,
-    "company" TEXT NOT NULL,
+    "company_name" TEXT NOT NULL,
     "initial_date" TIMESTAMP(3) NOT NULL,
     "final_date" TIMESTAMP(3),
     "is_main" BOOLEAN NOT NULL DEFAULT false,
@@ -108,13 +110,27 @@ CREATE TABLE "portfolios" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "link" TEXT NOT NULL,
-    "icone" TEXT NOT NULL,
+    "icon" TEXT NOT NULL,
     "description" CHAR(500),
     "curriculum_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "portfolios_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "files" (
+    "id" TEXT NOT NULL,
+    "width" DOUBLE PRECISION NOT NULL,
+    "height" DOUBLE PRECISION NOT NULL,
+    "url" TEXT NOT NULL,
+    "format" TEXT,
+    "user_id" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "files_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -146,6 +162,9 @@ CREATE INDEX "curriculums_public_email_idx" ON "curriculums" USING HASH ("public
 CREATE INDEX "languages_name_idx" ON "languages" USING HASH ("name");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "files_user_id_key" ON "files"("user_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "addresses_curriculum_id_key" ON "addresses"("curriculum_id");
 
 -- CreateIndex
@@ -171,6 +190,9 @@ ALTER TABLE "links" ADD CONSTRAINT "links_curriculum_id_fkey" FOREIGN KEY ("curr
 
 -- AddForeignKey
 ALTER TABLE "portfolios" ADD CONSTRAINT "portfolios_curriculum_id_fkey" FOREIGN KEY ("curriculum_id") REFERENCES "curriculums"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "files" ADD CONSTRAINT "files_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "addresses" ADD CONSTRAINT "addresses_curriculum_id_fkey" FOREIGN KEY ("curriculum_id") REFERENCES "curriculums"("id") ON DELETE CASCADE ON UPDATE CASCADE;

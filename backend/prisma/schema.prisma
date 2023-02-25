@@ -32,12 +32,14 @@ model Curriculum {
   views Int @default(0)
   searchable Boolean @default(true)
   civil_state String
-  availability String
+  title String
   presentation String
-  number String
+  phone String
   public_email String
   contact_preference String
-
+  first_name String
+  last_name String
+  
   user  User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
 
@@ -83,18 +85,15 @@ model Education {
 model Experience {
   id String @id
 
-  type String
-  company_name String
-
+  employer String
+  title String
   
   initial_date DateTime
   final_date DateTime?
 
   is_main Boolean @default(false)
 
-  office String
   description String? @db.Char(500)
-  company_site String?
 
   curriculum  Curriculum @relation(fields: [curriculum_id], references: [id], onDelete: Cascade)
   curriculum_id String
@@ -190,11 +189,10 @@ model Address {
 
   country String
   city String
-  region String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  @@index([country, city, region])
+  @@index([country, city])
 
   @@map("addresses")
 }

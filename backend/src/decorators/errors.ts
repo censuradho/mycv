@@ -1,6 +1,4 @@
-
 import { HttpException, HttpStatus } from '@nestjs/common'
-
 
 export class NotFoundException extends HttpException {
   constructor(description: string) {
@@ -11,11 +9,11 @@ export class NotFoundException extends HttpException {
 export class ForbiddenException extends HttpException {
   constructor(description: string) {
     super({ description }, HttpStatus.FORBIDDEN)
-  }  
+  }
 }
 
 export class UnauthorizedException extends HttpException {
   constructor(description: string) {
     super({ description }, HttpStatus.UNAUTHORIZED)
-  }  
+  }
 }
