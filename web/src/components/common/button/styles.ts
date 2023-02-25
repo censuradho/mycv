@@ -28,7 +28,7 @@ export const Button = styled('button', {
     },
     variant: {
       primary: {
-        background: '$heading',
+        background: '$primary',
         padding: '0.7rem 1rem',
         border: '1px solid transparent',
 
