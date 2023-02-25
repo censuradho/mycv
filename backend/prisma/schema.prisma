@@ -39,11 +39,11 @@ model Curriculum {
   contact_preference String
   first_name String
   last_name String
+  is_pcd Boolean @default(false)
   
   user  User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
 
-  is_pcd Boolean @default(false)
 
   educations Education[]
   languages Language[]

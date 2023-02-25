@@ -6,20 +6,18 @@ enum CivilState {
 }
 
 export interface Curriculum {
+  id: string
   views: number
   searchable: boolean
   civil_state: keyof typeof CivilState
+  title: string
+  presentation: string
+  phone: string
+  public_email: string
+  contact_preference: string
+  first_name: string
+  last_name: string
+  is_pcd: boolean
 }
 
-// views Int @default(0)
-// searchable Boolean @default(true)
-// civil_state String
-// availability String
-// occupation String
-// presentation String
-// phone String
-// public_email String
-// contact_preference String
-// first_name String
-// last_name String
-// is_pcd Boolean @default(false)
+export interface CreateCurriculum extends Curriculum {}
