@@ -6,8 +6,18 @@ import { useForm } from 'react-hook-form'
 import * as Styles from './styles'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signInWithEmailPasswordValidationSchema } from './validation'
+import { useAuth } from '@/context/auth'
+import { useRouter } from 'next/router'
+import { paths } from '@/constants/routes'
 
 export function LoginLayout () {
+  const router = useRouter()
+
+  const { 
+    onSignInWithEmailPassword,
+    isLoading 
+  } = useAuth()
+
   const {
     register,
     handleSubmit,
@@ -16,8 +26,13 @@ export function LoginLayout () {
     resolver: yupResolver(signInWithEmailPasswordValidationSchema)
   })
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: SignInWithEmailPasswordRequest) => {
+    try {
+      await onSignInWithEmailPassword(data)
+      router.push(paths.home)
+    } finally {
 
+    }
   }
 
   return (
@@ -41,7 +56,7 @@ export function LoginLayout () {
             errorMessage={errors?.password?.message}
           />
           <Box marginTop={2} fullWidth>
-            <Button fullWidth>Entrar</Button>
+            <Button loading={isLoading} fullWidth>Entrar</Button>
           </Box>
         </Styles.Form>
       </Styles.FormView>

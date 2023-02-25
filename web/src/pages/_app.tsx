@@ -1,5 +1,6 @@
 
 
+import { AuthProvider } from '@/context/auth'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
@@ -18,7 +19,9 @@ export default function MyApp ({ Component, pageProps }: AppProps) {
 
   return (
     <ToastProvider>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </ToastProvider>
   )
 }

@@ -19,9 +19,14 @@ async function signInWithEmailPassword (payload: SignInWithEmailPasswordRequest)
 }
 
 
+function signOut () {
+  delete api.defaults.headers['Authorization']
+}
+
 
 export const authService = {
   signUpWithEmailPassword,
   signInWithEmailPassword,
-  me
+  me,
+  signOut
 }
