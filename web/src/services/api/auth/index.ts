@@ -6,13 +6,19 @@ function signUpWithEmailPassword (payload: SignUpWithEmailPasswordRequest) {
   return api.post('/auth/sign-up', payload)
 }
 
-function signInWithEmailPassword (payload: SignInWithEmailPasswordRequest) {
-  return api.post<SignInWithEmailPasswordResponse>('/auth/login', payload)
-}
-
 function me () {
   return api.get<Me>('/auth/me')
 }
+
+async function signInWithEmailPassword (payload: SignInWithEmailPasswordRequest) {
+  const response =  await api.post<SignInWithEmailPasswordResponse>('/auth/login', payload)
+  api.defaults.headers['Authorization'] = `Bearer ${response.data.access_token}`
+  const { data } = await me()
+
+  return data
+}
+
+
 
 export const authService = {
   signUpWithEmailPassword,
