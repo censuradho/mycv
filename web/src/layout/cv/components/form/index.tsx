@@ -6,13 +6,14 @@ import { Box, Button, MarkdownEditor, Typography } from '@/components/common'
 import { InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
-import { CreateCurriculum, Experience } from '@/services/api/curriculum/types'
+import { CreateCurriculum, EnumContactPreference, Experience } from '@/services/api/curriculum/types'
 import { cityService } from '@/services/local-api/city'
 import { GetCityResponse } from '@/services/local-api/city/types'
 
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
+import { ContactPreference } from '../contact-preference'
 
 export const baseEmployment: Experience = {
   employer: '',
@@ -128,6 +129,41 @@ export function Form () {
               value={search}
               onSelect={value => setSearch(value)}
               // errorMessage={errors?.city?.message}
+            />
+          </Box>
+          <Box flexDirection="column" gap={2}>
+            <Styles.SectionTitle>Preferência de contato</Styles.SectionTitle>
+            <ContactPreference
+              name="contact_preference" 
+              options={[
+                {
+                  icon: 'whatsapp',
+                  value: EnumContactPreference.whatsapp,
+                  label: 'Whatsapp',
+                  id: 'whatsapp'
+                },
+                {
+                  icon: 'mail',
+                  value: EnumContactPreference.email,
+                  label: 'E-mail',
+                  id: 'mail'
+                },
+                {
+                  icon: 'phone',
+                  value: EnumContactPreference.phone,
+                  label: 'Telefone',
+                  id: 'phone'
+
+                },
+                {
+                  icon: 'telegram',
+                  value: EnumContactPreference.telegram,
+                  label: 'Telegram',
+                  id: 'telegram'
+                }
+              ]}
+              errorMessage={errors?.contact_preference?.message}
+              control={control} 
             />
           </Box>
           <Box flexDirection="column" gap={0.5}>

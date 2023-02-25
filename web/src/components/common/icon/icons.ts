@@ -1,6 +1,7 @@
 import {
   AiFillLinkedin,
   AiFillLock,
+  AiFillPhone,
   AiFillTag,
   AiOutlineArrowLeft,
   AiOutlineClose, AiOutlineDelete, AiOutlineHome, AiOutlineMail, AiOutlinePlus, AiOutlineUser
@@ -15,7 +16,7 @@ import {
 } from '@meronex/icons/en';
 import {
   FaBox,
-  FaDatabase, FaOpencart, FaStore, FaSuitcase
+  FaDatabase, FaOpencart, FaStore, FaSuitcase, FaTelegramPlane
 } from '@meronex/icons/fa';
 import {
   IosArrowDown,
@@ -47,7 +48,6 @@ import {
   MdcClockFast, MdcPokerChip, MdcWeb
 } from '@meronex/icons/mdc';
 import { MdAttachMoney } from '@meronex/icons/md';
-import { GiStoneBlock }  from '@meronex/icons/gi/';
 
 export const icons = {
   add: AiOutlinePlus,
@@ -99,5 +99,7 @@ export const icons = {
   arrowDown: IosArrowDown,
   arrowUp: IosArrowUp,
   verticalDot: BiDotsVerticalRounded,
-  delete: AiOutlineDelete
+  delete: AiOutlineDelete,
+  phone: AiFillPhone,
+  telegram: FaTelegramPlane
 }

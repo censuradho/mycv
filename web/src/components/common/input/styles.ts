@@ -27,7 +27,7 @@ export const Input = styled("input", {
   fontWeight: 500,
   
   "&::placeholder": {
-    color: "$ancesst6",
+    color: "$text",
     fontSize: "0.8rem",
     fontWeight: "400",
   },

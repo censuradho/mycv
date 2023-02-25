@@ -14,6 +14,13 @@ export interface Experience {
   is_main: boolean
 }
 
+export enum EnumContactPreference {
+  phone = 'phone',
+  cellPhone = 'cellPhone',
+  whatsapp = 'whatsapp',
+  telegram = 'telegram',
+  email = 'email'
+}
 export interface Curriculum {
   id: string
   views: number

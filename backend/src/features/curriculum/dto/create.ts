@@ -75,7 +75,7 @@ enum ContactPreference {
   phone = 'phone',
   cellPhone = 'cellPhone',
   whatsapp = 'whatsapp',
-  telegran = 'telegran',
+  telegram = 'telegram',
   email = 'email',
 }
 
