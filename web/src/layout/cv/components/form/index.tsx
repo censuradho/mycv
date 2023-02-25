@@ -1,6 +1,10 @@
 import { AutoComplete, Box, MarkdownEditor, Typography, Button } from '@/components/common'
 import { InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
+import { useDebounceCallback } from '@/hooks'
+import { cityService } from '@/services/local-api/city'
+import { GetCityResponse } from '@/services/local-api/city/types'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
@@ -28,11 +32,32 @@ export function Form () {
     }
   })
 
+  const [search, setSearch] = useState('')
+  const [cities, setCities] = useState<GetCityResponse[]>([])
+
+  const getCities = useDebounceCallback(async (cityName: string) => {
+    const { data } = await cityService.findByName(cityName)
+    setCities(data)
+  }, 2000)
+
   const onSubmit = async (data: any) => {
     console.log(data)
   }
 
-  
+  const options = cities.map(city => ({
+    label: city.name,
+    value: city.name
+  }))
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    setSearch(value)
+
+    if (value.length === 0) setCities([])
+    
+    if (value.length > 3) getCities(value)
+  }
+
   return (
     <Styles.Container>
       <Styles.Form onSubmit={handleSubmit(onSubmit)}>
@@ -86,11 +111,9 @@ export function Form () {
               name="city"
               label="Cidade"
               keyName="value"
-              items={[
-                { label: 'apple', value: 'apple' },
-                { label: 'banana', value: 'apple' },
-                { label: 'pear', value: 'apple' }
-              ]}
+              onChange={handleSearch}
+              items={options}
+              value={search}
             />
           </Box>
           <Box flexDirection="column" gap={0.5}>

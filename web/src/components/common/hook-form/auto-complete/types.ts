@@ -7,6 +7,7 @@ export interface AutoCompleteFormProps extends Pick<AutoCompleteProps,
   | 'items'
   | 'fullWidth'
   |'errorMessage'
+  | 'value'
 > {
   control: Control<any, any> | undefined
   name: string

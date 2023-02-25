@@ -1,8 +1,12 @@
-import {  localApi } from "@/services/local-api";
+import { ninjaApi } from "@/services/ninja";
 import { GetCityResponse } from "./types";
 
 export function findByName (name: string) {
-  return localApi.get<GetCityResponse[]>(`/city/${name}`)
+  return ninjaApi.get<GetCityResponse[]>('/city', {
+    params: {
+      name
+    }
+  })
 }
 
 export const cityService = {
