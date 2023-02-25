@@ -4,9 +4,11 @@ import { useLocalStorage } from "@/hooks";
 import { api } from "@/services/api";
 import { authService } from "@/services/api/auth";
 import { SignInWithEmailPasswordRequest, SignUpWithEmailPasswordRequest } from "@/services/api/auth/types";
+import { API_ERRORS } from "@/services/api/errors";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from "react";
+import { useToast } from "../toast";
 import { Auth, AuthContextParams } from "./types";
 
 const AuthContext  = createContext({} as AuthContextParams)
@@ -16,6 +18,7 @@ export function AuthProvider (props: PropsWithChildren) {
     children,
   } = props
   const router = useRouter()
+  const { onNotify } = useToast()
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -81,7 +84,10 @@ export function AuthProvider (props: PropsWithChildren) {
   }
 
   useEffect(() => {
-    if (!auth) return;
+    if (!auth) {
+      setIsLoading(false)
+      return
+    };
     handleAuth();
   }, []);
 
@@ -94,6 +100,31 @@ export function AuthProvider (props: PropsWithChildren) {
     })
   }, [handleSignOut])
 
+  useEffect(() => {
+    api.interceptors.response.use((response) => response, async (data: AxiosError) => {
+      const { response } = data;
+
+      const responseParsed = response as any;
+
+      const isError =
+        responseParsed.status >= 400
+        && responseParsed.status < 500;
+
+      if (response?.status === 401) {
+        handleSignOut()
+      }
+
+      if (isError) {
+        onNotify({
+          title: 'Atenção! 🚨',
+          description: API_ERRORS?.[responseParsed?.data?.description as keyof typeof API_ERRORS || 'generic']
+        })
+      }
+      return Promise.reject(data);
+    });
+  }, []);
+
+  
   return (
     <AuthContext.Provider
       value={{

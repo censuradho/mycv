@@ -1,6 +1,5 @@
 import { Toast } from "@/components/common";
 import { ToastMessage } from "@/components/common/toast/types";
-import useTimeout from "@/hooks/useTimeout";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { ToastContextProps } from "./types";
 
