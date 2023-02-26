@@ -25,7 +25,9 @@ export const List = styled('ul', {
   display: 'flex',
   flexWrap: 'wrap',
   gap: '0.5rem',
-  listStyleType: 'none'
+  listStyleType: 'none',
+  maxHeight: '250px',
+  overflowY: 'auto'
 })
 
 export const Button = styled('button', {
