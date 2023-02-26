@@ -29,6 +29,7 @@ export function Form () {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm<CreateCurriculum>({
     resolver: yupResolver(curriculumValidationSchema),
@@ -53,9 +54,6 @@ export function Form () {
     setCountries(data)
   }, 2000)
 
-  const onSubmit = async (data: any) => {
-    console.log(data)
-  }
 
   const optionsCities = cities.map(city => ({
     label: city.name,
@@ -66,6 +64,12 @@ export function Form () {
     label: country.name,
     value: country.name
   }))
+
+  const experiences = watch('experiences')
+
+  const onSubmit = async (data: any) => {
+    console.log(data)
+  }
 
   const handleSearchCity = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
@@ -86,7 +90,8 @@ export function Form () {
   }
 
 
-  console.log(errors)
+
+  
   return (
     <Styles.Container>
       <Styles.Form onSubmit={handleSubmit(onSubmit)}>
@@ -225,6 +230,7 @@ export function Form () {
             control={control}
             register={register}
             errors={errors?.experiences}
+            experiences={experiences}
           />
         </Box>
         <Button>Submit</Button>

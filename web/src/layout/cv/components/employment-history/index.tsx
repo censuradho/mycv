@@ -14,7 +14,8 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
   const {
     control,
     register,
-    errors
+    errors,
+    experiences
   } = props
 
 
@@ -22,18 +23,24 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
     fields,
     append,
     remove,
+    update,
   } = useFieldArray({
     control,
     name: 'experiences',
     keyName: '_id'
   })
 
+
   const renderFields = fields.map((value, index) => {
     const _value = value as any
+    const experience = experiences?.[index]
+
+    const title = `${experience?.title}  ${experience?.employer && '- ' + experience?.employer}`
+  
     return (
       <Box key={_value._id} alignItems="flexStart" gap={0.1}>
         <AccordionView 
-          title={_value?.office || '(Não especificado)'}
+          title={title || '(Não especificado)'}
         >
           <Styles.Container>
             <Box
@@ -62,7 +69,8 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
             <SwitchForm
               name={`experiences.${index}.is_main`}
               control={control} 
-              label="Atual" 
+              label="Atual"
+              errorMessage={errors?.[index]?.is_main?.message}
             />
             <Box gap={1}>
               <DatePickerForm
@@ -72,6 +80,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 fullWidth
                 showMonthYearPicker
                 dateFormat="MMM, yyyy"
+                errorMessage={errors?.[index]?.initial_date?.message}
               />
               <DatePickerForm
                 name={`experiences.${index}.final_date`}
@@ -80,6 +89,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 control={control}
                 showMonthYearPicker
                 dateFormat="MMM, yyyy"
+                errorMessage={errors?.[index]?.final_date?.message}
               />
             </Box>
             <EditorForm
@@ -88,7 +98,6 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               name={`experiences.${index}.description`}
               control={control}
               errorMessage={errors?.[index]?.description?.message}
-
             />
           </Styles.Container>
         </AccordionView>

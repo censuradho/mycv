@@ -39,7 +39,7 @@ export const DatePicker= forwardRef<any, DatePickerProps>((props, ref) => {
         selected={otherProps.selected || otherProps?.value && new Date(otherProps?.value) || undefined}
         locale="pt-BR" 
       />
-      {errorMessage && <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>}
+      <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
     </Styles.Container>
   )
 }) 
