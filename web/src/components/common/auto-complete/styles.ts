@@ -4,6 +4,8 @@ export const Container = styled('div', {
   display: "flex",
   flexDirection: "column",
   gap: "0.5rem",
+  width: '100%',
+
   input: {
     border: 'none',
     borderBottom: '2px solid transparent',

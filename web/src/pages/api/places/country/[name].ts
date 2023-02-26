@@ -1,5 +1,6 @@
+import { appSettings } from '@/config/appSettings'
 import { withMethodsGuard } from '@/hoc'
-import { cityService } from '@/services/ninja/city'
+import { placeServices } from '@/services/ninja/places'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 async function handler (req: NextApiRequest, res: NextApiResponse) {
@@ -8,7 +9,7 @@ async function handler (req: NextApiRequest, res: NextApiResponse) {
 
     const { name } = req.query
   
-    const { data } = await cityService.findByName(name as string)
+    const { data } = await placeServices.findCountryByName(name as string)
   
     return res.json(data)
   } catch (err) {

@@ -5,5 +5,5 @@ export const ninjaApi = axios.create({
   baseURL: 'https://api.api-ninjas.com/v1',
   headers: {
     'X-Api-Key': appSettings.ninjaApiKey
-  }
+  },
 })

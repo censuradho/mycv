@@ -33,7 +33,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
 
    
     return (
-      <Box key={_value._id} alignItems="flexStart" gap={1}>
+      <Box key={_value._id} alignItems="flexStart" gap={0.1}>
         <AccordionView 
           title={_value?.office || '(Não especificado)'}
         >

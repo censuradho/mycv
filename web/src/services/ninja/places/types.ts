@@ -6,3 +6,9 @@ export interface GetCityResponse {
   population: number,
   is_capital: boolean
 }
+
+export interface GetCountryResponse {
+  iso2: string
+  region: string
+  name: string
+}

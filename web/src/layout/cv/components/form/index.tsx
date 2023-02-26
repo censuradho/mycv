@@ -7,13 +7,13 @@ import { InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
 import { CreateCurriculum, EnumContactPreference, Experience } from '@/services/api/curriculum/types'
-import { cityService } from '@/services/local-api/city'
-import { GetCityResponse } from '@/services/local-api/city/types'
+import { GetCityResponse, GetCountryResponse } from '@/services/ninja/places/types'
 
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
 import { ContactPreference } from '../contact-preference'
+import { placeServices } from '@/services/local-api/places'
 
 export const baseEmployment: Experience = {
   employer: '',
@@ -37,33 +37,55 @@ export function Form () {
     }
   })
 
-  const [search, setSearch] = useState('')
+  console.log(errors)
+  const [searchCity, setSearchCity] = useState('')
+  const [searchCountry, setSearchCountry] = useState('')
+
   const [cities, setCities] = useState<GetCityResponse[]>([])
+  const [countries, setCountries] = useState<GetCountryResponse[]>([])
 
   const getCities = useDebounceCallback(async (cityName: string) => {
-    const { data } = await cityService.findByName(cityName)
+    const { data } = await placeServices.findByCityName(cityName)
     setCities(data)
+  }, 2000)
+
+  const getCountries = useDebounceCallback(async (cityName: string) => {
+    const { data } = await placeServices.findByCountryName(cityName)
+    setCountries(data)
   }, 2000)
 
   const onSubmit = async (data: any) => {
     console.log(data)
   }
 
-  const options = cities.map(city => ({
+  const optionsCities = cities.map(city => ({
     label: city.name,
     value: city.name
   }))
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const optionsCountries = countries.map(country => ({
+    label: country.name,
+    value: country.name
+  }))
+
+  const handleSearchCity = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
-    setSearch(value)
+    setSearchCity(value)
 
     if (value.length === 0) setCities([])
 
     if (value.length > 3) getCities(value)
   }
 
-  console.log(errors)
+  const handleSearchCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    setSearchCountry(value)
+
+    if (value.length === 0) setCountries([])
+
+    if (value.length > 3) getCountries(value)
+  }
+
 
   return (
     <Styles.Container>
@@ -76,7 +98,7 @@ export function Form () {
               fullWidth
               textHelper="Add seu cargo como ‘Senior Marketer’ ou ‘Sales Executive’ para que você está aplicando"
               register={register('title')}
-              placeholder="e.g Software Developer"
+              placeholder="ex Software Developer"
               errorMessage={errors?.title?.message}
             />
             <Box 
@@ -99,7 +121,7 @@ export function Form () {
                 errorMessage={errors?.last_name?.message}
               />
             </Box>
-            <Box 
+            <Box
               gap={1}
               flexDirection={{
                 '@initial': 'column',
@@ -119,17 +141,37 @@ export function Form () {
                 errorMessage={errors?.phone?.message}
               />
             </Box>
-            <AutoCompleteForm
-              control={control}
-              name="address.city"
-              label="Cidade"
-              keyName="value"
-              onChange={handleSearch}
-              items={options}
-              value={search}
-              onSelect={value => setSearch(value)}
-              // errorMessage={errors?.city?.message}
-            />
+            <Box
+              fullWidth
+              gap={1}
+              flexDirection={{
+                '@initial': 'column',
+                '@table-min': 'row'
+              }}
+            >
+              <AutoCompleteForm
+                control={control}
+                name="address.country"
+                label="Pais (opcional)"
+                keyName="value"
+                onChange={handleSearchCountry}
+                items={optionsCountries}
+                value={searchCountry}
+                onSelect={value => setSearchCountry(value)}
+                errorMessage={errors?.address?.city?.message}
+              />
+              <AutoCompleteForm
+                control={control}
+                name="address.city"
+                label="Cidade (opcional)"
+                keyName="value"
+                onChange={handleSearchCity}
+                items={optionsCities}
+                value={searchCity}
+                onSelect={value => setSearchCity(value)}
+                errorMessage={errors?.address?.city?.message}
+              />
+            </Box>
           </Box>
           <Box flexDirection="column" gap={2}>
             <Styles.SectionTitle>Preferência de contato</Styles.SectionTitle>

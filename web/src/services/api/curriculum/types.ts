@@ -21,6 +21,12 @@ export enum EnumContactPreference {
   telegram = 'telegram',
   email = 'email'
 }
+
+interface Address {
+  city: string
+  country: string
+}
+
 export interface Curriculum {
   id: string
   views: number
@@ -35,6 +41,7 @@ export interface Curriculum {
   last_name: string
   is_pcd: boolean
   experiences?: Array<Experience>
+  address?: Address
 }
 
 export interface CreateCurriculum extends Omit<Curriculum,
