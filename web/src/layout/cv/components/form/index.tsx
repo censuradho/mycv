@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Box, Button, MarkdownEditor, Typography } from '@/components/common'
-import { InputForm } from '@/components/common/hook-form'
+import { Box, Button, MarkdownEditor, Typography, Editor } from '@/components/common'
+import { EditorForm, InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
 import { CreateCurriculum, EnumContactPreference, Experience } from '@/services/api/curriculum/types'
@@ -37,7 +37,6 @@ export function Form () {
     }
   })
 
-  console.log(errors)
   const [searchCity, setSearchCity] = useState('')
   const [searchCountry, setSearchCountry] = useState('')
 
@@ -212,7 +211,11 @@ export function Form () {
             <Styles.SectionTitle>Resumo profissional</Styles.SectionTitle>
             <Typography as="p" size="xsm">Escreva 2-4 frases curtas e enérgicas para interessar o leitor! Mencione sua função, experiência e o mais importante - suas maiores conquistas, melhores qualidades e habilidades.</Typography>
           </Box>
-          <MarkdownEditor />
+          <EditorForm  
+            name="presentation"
+            control={control}
+            errorMessage={errors.presentation?.message}
+          />
           <Box flexDirection="column" gap={0.5}>
             <Styles.SectionTitle>Histórico profissional</Styles.SectionTitle>
             <Typography as="p" size="xsm">Mostre sua experiência relevante (últimos 10 anos). Use marcadores para anotar suas conquistas, se possível - use números/fatos (Conquistado X, medido por Y, fazendo Z).</Typography>

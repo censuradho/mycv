@@ -8,7 +8,7 @@ import {
 } from '@meronex/icons/ai';
 import {
   BiCodeAlt, BiCommand, BiDotsVerticalRounded, BilFacebookSquare, BilGithub,
-  BilInstagramAlt, BilSpotify, BilTwitter, BisDashboard,
+  BilInstagramAlt, BiListOl, BilSpotify, BilTwitter, BisDashboard,
   BisDownArrow, BisFilePdf, BisReport, BisShareAlt, BisUpArrow
 } from '@meronex/icons/bi';
 import {
@@ -35,7 +35,8 @@ import {
   EnRss
 } from '@meronex/icons/en';
 import {
-  BsQuestion
+  BsListUl,
+  BsQuestion, BsTypeBold, BsTypeItalic, BsTypeStrikethrough, BsTypeUnderline
 } from '@meronex/icons/bs';
 
 import {
@@ -101,5 +102,12 @@ export const icons = {
   verticalDot: BiDotsVerticalRounded,
   delete: AiOutlineDelete,
   phone: AiFillPhone,
-  telegram: FaTelegramPlane
+  telegram: FaTelegramPlane,
+  bold: BsTypeBold,
+  italic: BsTypeItalic,
+  underline: BsTypeUnderline,
+  lineThrough: BsTypeStrikethrough,
+  listOl: BiListOl,
+  listUl: BsListUl
 }
+
