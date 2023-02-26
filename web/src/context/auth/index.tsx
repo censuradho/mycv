@@ -13,6 +13,8 @@ import { Auth, AuthContextParams } from "./types";
 
 const AuthContext  = createContext({} as AuthContextParams)
 
+export const AUTH_KEY = `${appSettings.appName}:auth`
+
 export function AuthProvider (props: PropsWithChildren) {
   const {
     children,
@@ -22,7 +24,7 @@ export function AuthProvider (props: PropsWithChildren) {
 
   const [isLoading, setIsLoading] = useState(true)
 
-  const [auth, setAuth] = useLocalStorage<Auth | null>(`${appSettings.appName}:auth`, null)
+  const [auth, setAuth] = useLocalStorage<Auth | null>(AUTH_KEY, null)
 
   const handleSignInWithEmailPassword = async (payload: SignInWithEmailPasswordRequest) => {
     try {
