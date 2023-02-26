@@ -6,7 +6,7 @@ import { Box, Button, MarkdownEditor, Typography, Editor } from '@/components/co
 import { EditorForm, InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
-import { CreateCurriculum, Curriculum, EnumContactPreference, Experience } from '@/services/api/curriculum/types'
+import { CreateCurriculum, Curriculum, EnumContactPreference, EnumEducationSituation, Experience } from '@/services/api/curriculum/types'
 import { GetCityResponse, GetCountryResponse } from '@/services/ninja/places/types'
 
 import { EmploymentHistory } from '../employment-history'
@@ -31,7 +31,7 @@ export const baseEducation: CreateCurriculum['educations'] = [{
   institution_name: '',
   is_main: false,
   level: '',
-  situation: ''
+  situation: EnumEducationSituation.notInform
 }]
 
 export function Form () {
@@ -42,7 +42,7 @@ export function Form () {
     watch,
     formState: { errors }
   } = useForm<CreateCurriculum>({
-    resolver: yupResolver(curriculumValidationSchema),
+    // resolver: yupResolver(curriculumValidationSchema),
     defaultValues: {
       experiences: [baseEmployment]
     }

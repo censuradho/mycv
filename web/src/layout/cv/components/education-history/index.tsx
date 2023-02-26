@@ -1,12 +1,13 @@
 import * as Styles from './styles'
 import { EducationHistoryProps } from './types'
 import { useFieldArray } from "react-hook-form";
-import { Box, ButtonIcon } from '@/components/common';
+import { Box, ButtonIcon, Select } from '@/components/common';
 import { AccordionView } from '../accordion-view';
-import { DatePickerForm, InputForm } from '@/components/common/hook-form';
+import { DatePickerForm, InputForm, SelectForm } from '@/components/common/hook-form';
 import { Button } from '../button';
 import { baseEducation } from '../form';
 import { SwitchForm } from '@/components/common/hook-form/switch';
+import { EnumEducationSituation } from '@/services/api/curriculum/types';
 
 export function EducationHistory (props: EducationHistoryProps) {
   const {
@@ -49,12 +50,40 @@ export function EducationHistory (props: EducationHistoryProps) {
               }}
             >
               <InputForm 
-                label="Nome da empresa"
+                label="Nome da instituição"
                 fullWidth
                 id={`educations.${index}.institution_name`}
                 register={register(`educations.${index}.institution_name`)}
                 name={`educations.${index}.institution_name`}
                 errorMessage={errors?.[index]?.institution_name?.message}
+              />
+              <SelectForm
+                label="Situação"
+                control={control}
+                name={`educations.${index}.situation`}
+                fullWidth
+                options={[
+                  {
+                    label: 'Não informado',
+                    value: EnumEducationSituation.notInform
+                  },
+                  {
+                    label: 'Cursando',
+                    value: EnumEducationSituation.coursing
+                  },
+                  {
+                    label: 'Completo',
+                    value: EnumEducationSituation.complete
+                  },
+                  {
+                    label: 'Incompleto',
+                    value: EnumEducationSituation.incomplete
+                  },
+                  {
+                    label: 'Trancado',
+                    value: EnumEducationSituation.paused
+                  },
+                ]}
               />
             </Box>
             <Box

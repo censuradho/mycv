@@ -22,6 +22,14 @@ export enum EnumContactPreference {
   email = 'email'
 }
 
+export enum EnumEducationSituation {
+  notInform = 'notInform',
+  complete = 'complete',
+  coursing = 'coursing',
+  paused = 'paused',
+  incomplete = 'incomplete'
+}
+
 interface Address {
   city: string
   country: string
@@ -29,7 +37,7 @@ interface Address {
 
 interface Education {
   institution_name: string
-  situation: string
+  situation: keyof typeof EnumEducationSituation
   initial_date: string
   final_date: string
   level: string

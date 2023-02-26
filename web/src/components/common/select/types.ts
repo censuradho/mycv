@@ -1,4 +1,4 @@
-import { SelectProps as RadixSelectProps } from '@radix-ui/react-select'
+import { SelectProps as RadixSelectProps, SelectTriggerProps } from '@radix-ui/react-select'
 import { VariantProps } from '@stitches/react'
 
 import { Container } from './styles'
@@ -17,7 +17,10 @@ export interface SelectProps extends
     | 'defaultValue'
     | 'name'
   >,
-  VariantProps<typeof Container> {
+  VariantProps<typeof Container>,
+  Pick<SelectTriggerProps, 
+    'onBlur' 
+    | 'onFocus'> {
     label?: string
     id?: string,
     options: Option[]
