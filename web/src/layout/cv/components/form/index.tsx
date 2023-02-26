@@ -54,6 +54,12 @@ export const baseLanguages: CreateCurriculum['languages'] = [{
   writing: EnumLanguageLevel.basic
 }]
 
+export const basicPortfolio: CreateCurriculum['portfolios'] = [{
+  icon: '',
+  link: '',
+  name: ''
+}]
+
 export function Form () {
   const { 
     register,
@@ -62,7 +68,6 @@ export function Form () {
     watch,
     formState: { errors }
   } = useForm<CreateCurriculum>({
-    resolver: yupResolver(curriculumValidationSchema),
     defaultValues: {
       experiences: baseEmployment
     }

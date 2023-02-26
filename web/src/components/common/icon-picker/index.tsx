@@ -8,10 +8,19 @@ import { useState } from 'react'
 export function IconPicker (props: IconPickerProps) {
   const {
     label,
-    value
+    value,
+    errorMessage,
+    onChange,
+    onBlur,
+    onFocus
   } = props
 
   const [selectedIcon, setSelectedIcon] = useState(value)
+
+  const handleChange = (value: string) => {
+    onChange?.(value)
+    setSelectedIcon(value)
+  }
 
   const renderIcons = Object
     .entries(icons)
@@ -22,20 +31,24 @@ export function IconPicker (props: IconPickerProps) {
         <li key={key}>
           <Styles.Button 
             type="button"
-            onClick={() => setSelectedIcon(key)}
+            onClick={() => handleChange(key)}
             active={isActive}
+            onFocus={onFocus}
+            onBlur={onBlur}
           >
             <Icon name={key as any} color={isActive ? 'primary' : 'heading'} />
           </Styles.Button>
         </li>
       )
     })
+
   return (
     <Styles.Container>
       <Styles.Label>{label}</Styles.Label>
       <Styles.List>
         {renderIcons}
       </Styles.List>
+      <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
     </Styles.Container>
   )
 }

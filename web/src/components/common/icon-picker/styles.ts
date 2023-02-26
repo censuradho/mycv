@@ -13,6 +13,12 @@ export const Label = styled("label", {
   fontWeight: 500
 });
 
+
+export const ErrorMessage = styled('span', {
+  color: "$error",
+  fontSize: '$xsm'
+});
+
 export const List = styled('ul', {
   background: '$foreground',
   padding: '1rem',

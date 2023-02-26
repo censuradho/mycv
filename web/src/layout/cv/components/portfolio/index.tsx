@@ -1,10 +1,9 @@
-import { Box, ButtonIcon, IconPicker } from '@/components/common'
-import { InputForm, SelectForm } from '@/components/common/hook-form'
-import { EnumLanguageLevel } from '@/services/api/curriculum/types'
+import { Box, ButtonIcon } from '@/components/common'
+import { IconPickerForm, InputForm } from '@/components/common/hook-form'
 import { useFieldArray } from 'react-hook-form'
 import { AccordionView } from '../accordion-view'
 import { Button } from '../button'
-import { baseLanguages } from '../form'
+import { basicPortfolio } from '../form'
 import * as Styles from './styles'
 import { SkillsProps } from './types'
 
@@ -55,13 +54,18 @@ export function Portfolios (props: SkillsProps) {
               <InputForm 
                 label="Link"
                 fullWidth
+                inputMode="url"
                 id={`${name}.${index}.link`}
                 register={register(`${name}.${index}.link`)}
                 name={`${name}.${index}.link`}
                 errorMessage={errors?.[index]?.link?.message}
               />
             </Box>
-            <IconPicker label="Icone" />
+            <IconPickerForm
+              name={`${name}.${index}.icon`}
+              label="Ícone" 
+              control={control}
+            />
           </Styles.Container>
         </AccordionView>
         <ButtonIcon 
@@ -77,7 +81,7 @@ export function Portfolios (props: SkillsProps) {
   return (
     <Box flexDirection="column" gap={1}>
       {renderFields}
-      <Button onClick={() => append(baseLanguages)}>Add projeto</Button>
+      <Button onClick={() => append(basicPortfolio)}>Add projeto</Button>
     </Box>
   )
 }
