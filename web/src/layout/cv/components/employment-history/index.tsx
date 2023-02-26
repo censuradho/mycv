@@ -1,5 +1,5 @@
 import { Box, ButtonIcon, DatePicker, MarkdownEditor, Select, Switch } from "@/components/common";
-import { DatePickerForm, InputForm } from "@/components/common/hook-form";
+import { DatePickerForm, EditorForm, InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
 import { AccordionView } from "../accordion-view";
@@ -82,8 +82,10 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 dateFormat="MMM, yyyy"
               />
             </Box>
-            <MarkdownEditor 
+            <EditorForm
               label="Descrição"
+              name={`experiences.${index}.description`}
+              control={control}
             />
           </Styles.Container>
         </AccordionView>

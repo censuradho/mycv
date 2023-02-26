@@ -2,9 +2,9 @@ import { styled } from 'stitches.config'
 import {  EditorContent as TipTapEditorContent } from '@tiptap/react'
 
 export const Container = styled('div', {
-  background: '$foreground',
   display: "flex",
   flexDirection: "column",
+  gap: "0.5rem",
   
   '.ProseMirror': {
     padding: '0 1rem 1rem 1rem',
@@ -16,7 +16,10 @@ export const Container = styled('div', {
       outline: 'none'
     }
   }
+})
 
+export const Content = styled('div', {
+  background: '$foreground',
 })
 
 export const Editor = styled(TipTapEditorContent, {

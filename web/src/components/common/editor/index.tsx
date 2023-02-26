@@ -6,6 +6,7 @@ import { ToolBar } from './components'
 
 import { EditorProps } from './types'
 import * as Styles from './styles'
+import { Box } from '../box'
 
 export const Editor = memo(forwardRef<any, EditorProps>((props) => {
   const { 
@@ -13,14 +14,16 @@ export const Editor = memo(forwardRef<any, EditorProps>((props) => {
     value,
     onBlur,
     onFocus,
-    errorMessage
+    errorMessage,
+    label,
+    id
   } = props
 
   const editor = useEditor({
     extensions: [
       StarterKit,
     ],
-    content: value,
+    content: value || undefined,
     onUpdate({ editor }) {
       onChange?.(editor.getHTML())
     },
@@ -34,9 +37,12 @@ export const Editor = memo(forwardRef<any, EditorProps>((props) => {
 
   return (
     <Styles.Container>
-      <ToolBar editor={editor} />
-      <Styles.Editor editor={editor} />
-      <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
+      <Styles.Label htmlFor={id}>{label}</Styles.Label>
+      <Styles.Content>
+        <ToolBar editor={editor} />
+        <Styles.Editor id={id} editor={editor} />
+        <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
+      </Styles.Content>
     </Styles.Container>
   )
 }))

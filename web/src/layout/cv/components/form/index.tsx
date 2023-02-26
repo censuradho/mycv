@@ -86,6 +86,7 @@ export function Form () {
   }
 
 
+  console.log(errors)
   return (
     <Styles.Container>
       <Styles.Form onSubmit={handleSubmit(onSubmit)}>

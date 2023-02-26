@@ -14,7 +14,7 @@ export function EditorForm (props: EditorFormProps) {
       name={name}
       control={control}
       render={({ field }) => (
-        <Editor 
+        <Editor
           {...otherProps}
           {...field}
         />

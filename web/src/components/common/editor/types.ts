@@ -4,4 +4,6 @@ export interface EditorProps {
   onFocus?: (event: FocusEvent) => void
   onBlur?: (event: FocusEvent) => void
   errorMessage?: string
+  label?: string
+  id?: string
 }
