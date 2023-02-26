@@ -49,8 +49,8 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 label="Cargo"
                 fullWidth
                 id={`experience.${index}.title`}
-                register={register(`experiences.${index}.office`)}
-                name={`experiences.${index}.office`}
+                register={register(`experiences.${index}.title`)}
+                name={`experiences.${index}.title`}
               />
               <InputForm 
                 label="Nome da empresa"
@@ -83,6 +83,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               />
             </Box>
             <EditorForm
+              id={`experiences.${index}.description`}
               label="Descrição"
               name={`experiences.${index}.description`}
               control={control}

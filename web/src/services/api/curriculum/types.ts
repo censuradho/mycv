@@ -27,6 +27,8 @@ interface Address {
   country: string
 }
 
+
+
 export interface Curriculum {
   id: string
   views: number
