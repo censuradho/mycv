@@ -31,6 +31,9 @@ export const Container = styled('div', {
       borderColor: "$primary",
     },
 
+    '&:disabled': {
+      opacity: 0.3
+    },
   
   },
   '.react-datepicker': {

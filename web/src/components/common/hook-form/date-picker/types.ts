@@ -8,6 +8,7 @@ export interface DatePickerFormProps extends Pick<DatePickerProps,
   | 'showMonthYearPicker'
   | 'dateFormat'
   | 'errorMessage'
+  | 'disabled'
 > {
   control: Control<FieldValues, any> | undefined
   name: string

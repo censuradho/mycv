@@ -1,4 +1,4 @@
-import { Box, ButtonIcon, DatePicker, MarkdownEditor, Select, Switch } from "@/components/common";
+import { Box, ButtonIcon } from "@/components/common";
 import { DatePickerForm, EditorForm, InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
@@ -6,9 +6,10 @@ import { AccordionView } from "../accordion-view";
 import { Button } from "../button";
 import { EmploymentHistoryProps } from "./types";
 
-import * as Styles from './styles'
-import { baseEmployment } from "../form";
 import { SwitchForm } from "@/components/common/hook-form/switch";
+import { format } from "@/lib/date-fns";
+import { baseEmployment } from "../form";
+import * as Styles from './styles';
 
 export function EmploymentHistory (props: EmploymentHistoryProps) {
   const {
@@ -35,12 +36,16 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
     const _value = value as any
     const experience = experiences?.[index]
 
+    const { initial_date, final_date } = experience || {}
+
     const title = `${experience?.title}  ${experience?.employer && '- ' + experience?.employer}`
-  
+    const fromTo = `${initial_date && format(new Date(initial_date), 'MMM yyyy')} ${final_date && '- ' + format(new Date(final_date), 'MMM yyyy')}`
+
     return (
       <Box key={_value._id} alignItems="flexStart" gap={0.1}>
         <AccordionView 
-          title={title || '(Não especificado)'}
+          title={title.trim() || '(Não especificado)'}
+          subTitle={fromTo.trim()}
         >
           <Styles.Container>
             <Box
@@ -86,6 +91,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 name={`experiences.${index}.final_date`}
                 label="Fim"
                 fullWidth
+                disabled={experience?.is_main}
                 control={control}
                 showMonthYearPicker
                 dateFormat="MMM, yyyy"

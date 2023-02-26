@@ -58,7 +58,7 @@ export const Trigger = styled(Accordion.Trigger, {
   all: 'unset',
   fontFamily: 'inherit',
   backgroundColor: 'transparent',
-  height: 45,
+  padding: '0.5rem 0',
   flex: 1,
   display: 'flex',
   alignItems: 'center',
@@ -69,7 +69,9 @@ export const Trigger = styled(Accordion.Trigger, {
   fontWeight: 600,
 
   '&:hover, &:focus': {
-    color: '$primary'
+    strong: {
+      color: '$primary'
+    }
   }
 });
 
