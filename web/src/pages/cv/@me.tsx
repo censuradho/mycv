@@ -1,7 +1,10 @@
+import { withAuthorization } from "@/hoc";
 import { CvLayout } from "@/layout/cv";
 
-export default function CVPage () {
+function CVPage () {
   return (
     <CvLayout />
   )
 }
+
+export default withAuthorization(CVPage)

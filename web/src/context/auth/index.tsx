@@ -39,9 +39,9 @@ export function AuthProvider (props: PropsWithChildren) {
 
 
   const handleSignOut = useCallback(() => {
+    setAuth(null)
     authService.signOut()
     router.push(paths.auth.signIn)
-    setAuth(null)
   }, [router, setAuth])
 
   const handleSignUpWithEmailPassword = async (payload: SignUpWithEmailPasswordRequest) => {
@@ -108,20 +108,10 @@ export function AuthProvider (props: PropsWithChildren) {
 
       const responseParsed = response as any;
 
-      const isError =
-        responseParsed.status >= 400
-        && responseParsed.status < 500;
-
       if (response?.status === 401) {
         handleSignOut()
       }
 
-      if (isError) {
-        onNotify({
-          title: 'Atenção! 🚨',
-          description: API_ERRORS?.[responseParsed?.data?.description as keyof typeof API_ERRORS || 'generic']
-        })
-      }
       return Promise.reject(data);
     });
   }, []);
@@ -132,6 +122,7 @@ export function AuthProvider (props: PropsWithChildren) {
       value={{
         auth,
         isLoading,
+        isSigned: !!auth,
         onSignInWithEmailPassword: handleSignInWithEmailPassword,
         onSignOut: handleSignOut,
         onSignUpWithEmailPassword: handleSignUpWithEmailPassword,
