@@ -5,26 +5,30 @@ import { Box, Button, Typography } from '@/components/common'
 import { EditorForm, InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
-import { CreateCurriculum, EnumContactPreference, EnumEducationLevel, EnumEducationSituation, Experience } from '@/services/api/curriculum/types'
+import {
+  CreateCurriculum, EnumContactPreference,
+  EnumEducationLevel,
+  EnumEducationSituation
+} from '@/services/api/curriculum/types'
 import { GetCityResponse, GetCountryResponse } from '@/services/ninja/places/types'
 
 import { placeServices } from '@/services/local-api/places'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { ContactPreference } from '../contact-preference'
 import { EducationHistory } from '../education-history'
 import { EmploymentHistory } from '../employment-history'
-import * as Styles from './styles'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { curriculumValidationSchema } from './validations'
 import { Skills } from '../skills'
+import * as Styles from './styles'
+import { curriculumValidationSchema } from './validations'
 
-export const baseEmployment: Experience = {
+export const baseEmployment: CreateCurriculum['experiences'] = [{
   employer: '',
   title: '',
   initial_date: '',
   final_date: '',
   is_main: false,
   description: '',
-}
+}]
 
 export const baseEducation: CreateCurriculum['educations'] = [{
   final_date: '',
@@ -36,6 +40,10 @@ export const baseEducation: CreateCurriculum['educations'] = [{
   title: ''
 }]
 
+export const baseSkill: CreateCurriculum['skills'] = [{
+  name: ''
+}] 
+
 export function Form () {
   const { 
     register,
@@ -46,7 +54,7 @@ export function Form () {
   } = useForm<CreateCurriculum>({
     resolver: yupResolver(curriculumValidationSchema),
     defaultValues: {
-      experiences: [baseEmployment]
+      experiences: baseEmployment
     }
   })
 
@@ -77,7 +85,11 @@ export function Form () {
     value: country.name
   }))
 
-  const [experiences, educations] = watch(['experiences', 'educations'])
+  const [
+    experiences, 
+    educations,
+    skills
+  ] = watch(['experiences', 'educations', 'skills'])
 
   const onSubmit = async (data: any) => {
     console.log(data)
@@ -253,11 +265,17 @@ export function Form () {
             errors={errors?.educations}
             data={educations}
           />
+          <Box flexDirection="column" gap={0.5}>
+            <Styles.SectionTitle>Habilidades</Styles.SectionTitle>
+            <Typography as="p" size="xsm">
+              Escolha 5 das habilidades mais importantes para mostrar seus talentos! Certifique-se de que correspondam às palavras-chave da lista de empregos, caso se candidate através de um sistema online.
+            </Typography>
+          </Box>
           <Skills 
             control={control}
             register={register}
             errors={errors?.educations}
-            data={[]}
+            data={skills}
           />
         </Box>
         <Button>Submit</Button>

@@ -1,17 +1,11 @@
+
+export type CreateEntityOmit<T> = Omit<T, 'id' | 'created_at' | 'updated_at'>
+
 enum CivilState {
   doNotInform = 'doNotInform',
   married = 'married',
   single = 'single',
   divorced = 'divorced'
-}
-
-export interface Experience {
-  employer: string,
-  title: string,
-  initial_date: string,
-  final_date: string,
-  description: string,
-  is_main: boolean
 }
 
 export enum EnumContactPreference {
@@ -57,7 +51,18 @@ interface Address {
   country: string
 }
 
+export interface Experience {
+  id: string
+  employer: string,
+  title: string,
+  initial_date: string,
+  final_date: string,
+  description: string,
+  is_main: boolean
+}
+
 interface Education {
+  id: string
   title: string
   institution_name: string
   situation: keyof typeof EnumEducationSituation
@@ -67,6 +72,10 @@ interface Education {
   is_main: boolean
 }
 
+interface Skill {
+  name: string
+  id: string
+}
 
 export interface Curriculum {
   id: string
@@ -86,8 +95,16 @@ export interface Curriculum {
   educations?: Array<Education>
 }
 
+export type CreateEducation = CreateEntityOmit<Education>
+export type CreateSkill =  CreateEntityOmit<Skill>
+export type CreateExperience =  CreateEntityOmit<Experience>
 export interface CreateCurriculum extends Omit<Curriculum,
   'searchable'
   | 'views'
+  | 'educations'
+  | 'experiences'
 > {
+  educations?: Array<CreateEducation>
+  skills?: Array<CreateSkill>
+  experiences?: Array<CreateExperience>
 }

@@ -32,6 +32,10 @@ const educationValidationSchema = y.object({
   is_main: y.boolean(),
 })
 
+const skillValidationSchema = y.object({
+  name: y.string().required(FORM_ERROR_MESSAGES.required),
+})
+
 export const curriculumValidationSchema = y.object({
   title: y.string().required(FORM_ERROR_MESSAGES.required),
   presentation: y.string().required(FORM_ERROR_MESSAGES.required),
@@ -42,5 +46,6 @@ export const curriculumValidationSchema = y.object({
   last_name: y.string().required(FORM_ERROR_MESSAGES.required),
   is_pcd: y.boolean(),
   experiences: y.array().of(experienceSchemaValidation).nullable(),
-  educations: y.array().of(educationValidationSchema).nullable()
+  educations: y.array().of(educationValidationSchema).nullable(),
+  skills: y.array().of(skillValidationSchema).nullable()
 })

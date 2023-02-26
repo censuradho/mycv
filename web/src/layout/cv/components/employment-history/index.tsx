@@ -20,6 +20,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
     experiences
   } = props
 
+  const name = 'experiences'
 
   const {
     fields,
@@ -28,7 +29,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
     update,
   } = useFieldArray({
     control,
-    name: 'experiences',
+    name,
     keyName: '_id'
   })
 
@@ -59,28 +60,31 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               <InputForm 
                 label="Cargo"
                 fullWidth
-                id={`experience.${index}.title`}
-                register={register(`experiences.${index}.title`)}
-                name={`experiences.${index}.title`}
+                id={`${name}.${index}.title`}
+                register={register(`${name}.${index}.title`)}
+                name={`${name}.${index}.title`}
                 errorMessage={errors?.[index]?.title?.message}
               />
               <InputForm 
                 label="Nome da empresa"
                 fullWidth
-                register={register(`experiences.${index}.employer`)}
-                name={`experiences.${index}.employer`}
+                register={register(`${name}.${index}.employer`)}
+                name={`${name}.${index}.employer`}
+                id={`${name}.${index}.employer`}
                 errorMessage={errors?.[index]?.employer?.message}
               />
             </Box>
             <SwitchForm
-              name={`experiences.${index}.is_main`}
+              name={`${name}.${index}.is_main`}
               control={control} 
               label="Atual"
+              id={`${name}.${index}.is_main`}
               errorMessage={errors?.[index]?.is_main?.message}
             />
             <Box gap={1}>
               <DatePickerForm
-                name={`experiences.${index}.initial_date`}
+                id={`${name}.${index}.initial_date`}
+                name={`${name}.${index}.initial_date`}
                 control={control}
                 label="Início"
                 fullWidth
@@ -89,7 +93,8 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 errorMessage={errors?.[index]?.initial_date?.message}
               />
               <DatePickerForm
-                name={`experiences.${index}.final_date`}
+                id={`${name}.${index}.final_date`}
+                name={`${name}.${index}.final_date`}
                 label="Fim"
                 fullWidth
                 disabled={experience?.is_main}
@@ -100,9 +105,9 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               />
             </Box>
             <EditorForm
-              id={`experiences.${index}.description`}
+              id={`${name}.${index}.description`}
               label="Descrição"
-              name={`experiences.${index}.description`}
+              name={`${name}.${index}.description`}
               control={control}
               errorMessage={errors?.[index]?.description?.message}
             />
