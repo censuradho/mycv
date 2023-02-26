@@ -8,7 +8,13 @@ function create (payload: CreateCurriculum) {
 function me () {
   return api.get<Curriculum>('curriculum/me')
 }
+
+function findAll () {
+  return api.get<Array<{ id: string }>>('curriculum/all')
+}
+
 export const curriculumService = {
   create,
-  me
+  me,
+  findAll
 }

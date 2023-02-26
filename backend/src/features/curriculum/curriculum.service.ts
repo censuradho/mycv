@@ -153,7 +153,7 @@ export class CurriculumService {
     })
   }
 
-  async findAll(query?: QueryDto) {
+  async findMany(query?: QueryDto) {
     return await this.prisma.curriculum.findMany({
       where: {
         ...(query?.q && {
@@ -199,6 +199,14 @@ export class CurriculumService {
         links: true,
         portfolios: true,
         skills: true,
+      },
+    })
+  }
+
+  async findAll() {
+    return this.prisma.curriculum.findMany({
+      select: {
+        id: true,
       },
     })
   }

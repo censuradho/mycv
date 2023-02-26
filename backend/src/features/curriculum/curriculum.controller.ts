@@ -27,8 +27,13 @@ export class CurriculumController {
   }
 
   @Get()
-  async findAll(@Query() query: QueryDto) {
-    return await this.service.findAll(query)
+  async findMany(@Query() query: QueryDto) {
+    return await this.service.findMany(query)
+  }
+
+  @Get('all')
+  async findAll() {
+    return await this.service.findAll()
   }
 
   @Post('/avatar/upload')
