@@ -46,6 +46,14 @@ export enum EnumEducationSituation {
   incomplete = 'incomplete'
 }
 
+export enum EnumLanguageLevel {
+  basic = 'basic',
+  intermediate = 'intermediate',
+  proficient = 'proficient',
+  advanced = 'advanced',
+  fluent = 'fluent',
+}
+
 interface Address {
   city: string
   country: string
@@ -77,6 +85,13 @@ interface Skill {
   id: string
 }
 
+interface Language {
+  id: string
+  name: string
+  conversation: keyof typeof EnumLanguageLevel
+  reading: keyof typeof EnumLanguageLevel
+  writing: keyof typeof EnumLanguageLevel
+}
 export interface Curriculum {
   id: string
   views: number
@@ -95,9 +110,10 @@ export interface Curriculum {
   educations?: Array<Education>
 }
 
-export type CreateEducation = CreateEntityOmit<Education>
-export type CreateSkill =  CreateEntityOmit<Skill>
-export type CreateExperience =  CreateEntityOmit<Experience>
+type CreateEducation = CreateEntityOmit<Education>
+type CreateSkill =  CreateEntityOmit<Skill>
+type CreateExperience =  CreateEntityOmit<Experience>
+
 export interface CreateCurriculum extends Omit<Curriculum,
   'searchable'
   | 'views'
@@ -107,4 +123,5 @@ export interface CreateCurriculum extends Omit<Curriculum,
   educations?: Array<CreateEducation>
   skills?: Array<CreateSkill>
   experiences?: Array<CreateExperience>
+  languages?: Array<CreateEntityOmit<Language>>
 }

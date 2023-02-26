@@ -8,7 +8,8 @@ import { useDebounceCallback } from '@/hooks'
 import {
   CreateCurriculum, EnumContactPreference,
   EnumEducationLevel,
-  EnumEducationSituation
+  EnumEducationSituation,
+  EnumLanguageLevel
 } from '@/services/api/curriculum/types'
 import { GetCityResponse, GetCountryResponse } from '@/services/ninja/places/types'
 
@@ -20,6 +21,7 @@ import { EmploymentHistory } from '../employment-history'
 import { Skills } from '../skills'
 import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
+import { Languages } from '../languages'
 
 export const baseEmployment: CreateCurriculum['experiences'] = [{
   employer: '',
@@ -42,7 +44,14 @@ export const baseEducation: CreateCurriculum['educations'] = [{
 
 export const baseSkill: CreateCurriculum['skills'] = [{
   name: ''
-}] 
+}]
+
+export const baseLanguages: CreateCurriculum['languages'] = [{
+  name: '',
+  conversation: EnumLanguageLevel.basic,
+  reading: EnumLanguageLevel.basic,
+  writing: EnumLanguageLevel.basic
+}]
 
 export function Form () {
   const { 
@@ -88,8 +97,9 @@ export function Form () {
   const [
     experiences, 
     educations,
-    skills
-  ] = watch(['experiences', 'educations', 'skills'])
+    skills,
+    languages
+  ] = watch(['experiences', 'educations', 'skills', 'languages'])
 
   const onSubmit = async (data: any) => {
     console.log(data)
@@ -157,6 +167,8 @@ export function Form () {
               <InputForm 
                 label="E-mail"
                 fullWidth
+                type="email"
+                inputMode="email"
                 register={register('public_email')}
                 errorMessage={errors?.public_email?.message}
               />
@@ -276,6 +288,15 @@ export function Form () {
             register={register}
             errors={errors?.educations}
             data={skills}
+          />
+          <Box flexDirection="column" gap={0.5}>
+            <Styles.SectionTitle>Idiomas</Styles.SectionTitle>
+          </Box>
+          <Languages 
+            control={control}
+            register={register}
+            errors={errors?.languages}
+            data={languages}
           />
         </Box>
         <Button>Submit</Button>
