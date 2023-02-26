@@ -92,6 +92,13 @@ interface Language {
   reading: keyof typeof EnumLanguageLevel
   writing: keyof typeof EnumLanguageLevel
 }
+
+interface Portfolio {
+  id: string
+  name: string
+  link: string
+  icon: string
+}
 export interface Curriculum {
   id: string
   views: number
@@ -108,6 +115,8 @@ export interface Curriculum {
   experiences?: Array<Experience>
   address?: Address
   educations?: Array<Education>
+  portfolios?: Array<Portfolio>
+  languages?: Array<Language>
 }
 
 type CreateEducation = CreateEntityOmit<Education>
@@ -119,9 +128,12 @@ export interface CreateCurriculum extends Omit<Curriculum,
   | 'views'
   | 'educations'
   | 'experiences'
+  | 'languages'
+  | 'portfolios'
 > {
   educations?: Array<CreateEducation>
   skills?: Array<CreateSkill>
   experiences?: Array<CreateExperience>
   languages?: Array<CreateEntityOmit<Language>>
+  portfolios?: Array<CreateEntityOmit<Portfolio>>
 }

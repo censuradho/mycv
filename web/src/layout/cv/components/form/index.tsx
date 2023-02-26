@@ -18,10 +18,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ContactPreference } from '../contact-preference'
 import { EducationHistory } from '../education-history'
 import { EmploymentHistory } from '../employment-history'
+import { Languages } from '../languages'
+import { Portfolios } from '../portfolio'
 import { Skills } from '../skills'
 import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
-import { Languages } from '../languages'
 
 export const baseEmployment: CreateCurriculum['experiences'] = [{
   employer: '',
@@ -98,8 +99,15 @@ export function Form () {
     experiences, 
     educations,
     skills,
-    languages
-  ] = watch(['experiences', 'educations', 'skills', 'languages'])
+    languages,
+    portfolios
+  ] = watch([
+    'experiences', 
+    'educations', 
+    'skills', 
+    'languages',
+    'portfolios'
+  ])
 
   const onSubmit = async (data: any) => {
     console.log(data)
@@ -297,6 +305,18 @@ export function Form () {
             register={register}
             errors={errors?.languages}
             data={languages}
+          />
+          <Box flexDirection="column" gap={0.5}>
+            <Styles.SectionTitle>Portfólio</Styles.SectionTitle>
+            <Typography as="p" size="xsm">
+            Adicionar um portfólio pode ser uma ótima maneira de mostrar seu trabalho e habilidades para possíveis empregadores, clientes ou colaboradores. 
+            </Typography>
+          </Box>
+          <Portfolios 
+            control={control}
+            register={register}
+            errors={errors?.portfolios}
+            data={portfolios}
           />
         </Box>
         <Button>Submit</Button>
