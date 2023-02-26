@@ -15,6 +15,7 @@ import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { curriculumValidationSchema } from './validations'
+import { Skills } from '../skills'
 
 export const baseEmployment: Experience = {
   employer: '',
@@ -251,6 +252,12 @@ export function Form () {
             register={register}
             errors={errors?.educations}
             data={educations}
+          />
+          <Skills 
+            control={control}
+            register={register}
+            errors={errors?.educations}
+            data={[]}
           />
         </Box>
         <Button>Submit</Button>
