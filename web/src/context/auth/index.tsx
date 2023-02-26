@@ -5,6 +5,7 @@ import { api } from "@/services/api";
 import { authService } from "@/services/api/auth";
 import { SignInWithEmailPasswordRequest, SignUpWithEmailPasswordRequest } from "@/services/api/auth/types";
 import { API_ERRORS } from "@/services/api/errors";
+import { isBrowser } from "@/utils/helpers";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from "react";
@@ -116,7 +117,23 @@ export function AuthProvider (props: PropsWithChildren) {
     });
   }, []);
 
+  function getStorage <T>(key: string) {
+    const tokenStorage = localStorage.getItem(key)
   
+    return tokenStorage ? (JSON.parse(tokenStorage) as T) : null
+  }
+
+  useEffect(() => {
+    api.interceptors.request.use(async config => {
+      const storage = isBrowser() ?  getStorage<Auth>(AUTH_KEY) : null
+    
+      if (storage) {
+        config.headers.Authorization = `Bearer ${storage.access_token}`
+      }
+    
+      return config
+    }, error => Promise.reject(error))
+  }, [])
   return (
     <AuthContext.Provider
       value={{

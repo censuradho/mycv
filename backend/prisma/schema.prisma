@@ -43,6 +43,7 @@ model Curriculum {
   user  User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
 
+  slug String
 
   educations Education[]
   languages Language[]

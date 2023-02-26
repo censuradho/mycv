@@ -3,6 +3,7 @@ import { REQUEST } from '@nestjs/core'
 import { randomUUID } from 'crypto'
 import { PrismaService } from 'src/database/prisma.service'
 import { ForbiddenException } from 'src/decorators/errors'
+import { slugify } from 'src/utils/slugfy'
 import { AuthRequest } from '../auth/models'
 import { AvatarService } from '../avatar/avatar.service'
 import { CreateCurriculumDto } from './dto/create'
@@ -52,6 +53,7 @@ export class CurriculumService {
         title: payload.title,
         first_name: payload.first_name,
         last_name: payload.last_name,
+        slug: slugify(`${payload.first_name} ${payload.last_name}`.trim()),
         ...(address && {
           address: {
             create: {
@@ -140,6 +142,23 @@ export class CurriculumService {
     return this.prisma.curriculum.findFirst({
       where: {
         user_id: this.request.user.id,
+      },
+      include: {
+        address: true,
+        educations: true,
+        experiences: true,
+        languages: true,
+        links: true,
+        portfolios: true,
+        skills: true,
+      },
+    })
+  }
+
+  async findById(id: string) {
+    return this.prisma.curriculum.findUnique({
+      where: {
+        id,
       },
       include: {
         address: true,
