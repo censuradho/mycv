@@ -54,7 +54,6 @@ export const CanvasView = styled('div', {
 })
 
 export const Canvas = styled('canvas', {
-  background: 'tomato'
 })
 
 export const {

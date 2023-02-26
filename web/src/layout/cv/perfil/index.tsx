@@ -1,9 +1,16 @@
+import { Container } from '@/components/common'
+import { CurriculumPreview } from '@/components/common/curriculum-preview'
 import * as Styles from './styles'
 import { CvPerfilProps } from './types'
 
 export function CvPerfilLayout (props: CvPerfilProps) {
-  console.log(props)
+  const { data } = props
+
   return (
-    <Styles.Container></Styles.Container>
+    <Container>
+      <Styles.Container>
+        <CurriculumPreview />
+      </Styles.Container>
+    </Container>
   )
 }
