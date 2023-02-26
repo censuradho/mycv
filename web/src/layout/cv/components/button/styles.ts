@@ -8,7 +8,8 @@ export const Button = styled('button', {
   alignItems: 'center',
   gap: '1rem',
   padding: '0.5rem',
-
+  width: '100%',
+  
   '&:hover, &:focus': {
     background: '$primaryLighter'
   }

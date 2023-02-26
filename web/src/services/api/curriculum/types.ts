@@ -22,6 +22,28 @@ export enum EnumContactPreference {
   email = 'email'
 }
 
+export enum EnumEducationLevel {
+  highSchool = 'highSchool',
+  universityEducation = 'universityEducation',
+  onlineCourse = 'onlineCourse',
+  classroomCourse = 'classroomCourse',
+  certification = 'certification',
+  trainingEvent = 'trainingEvent',
+  technologist = 'technologist',
+  technician = 'technician',
+  doctorateDegree = 'doctorateDegree',
+  postgraduateStudies = 'postgraduateStudies',
+  master = 'master',
+  phD = 'phD',
+  specialization = 'specialization',
+  training = 'training',
+  improvement = 'improvement',
+  recycling = 'recycling',
+  professionalizing = 'professionalizing',
+  extension = 'extension',
+  exchange = 'exchange'
+}
+
 export enum EnumEducationSituation {
   notInform = 'notInform',
   complete = 'complete',
@@ -36,11 +58,12 @@ interface Address {
 }
 
 interface Education {
+  title: string
   institution_name: string
   situation: keyof typeof EnumEducationSituation
   initial_date: string
   final_date: string
-  level: string
+  level: keyof typeof EnumEducationLevel
   is_main: boolean
 }
 

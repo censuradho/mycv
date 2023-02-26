@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Box, Button, MarkdownEditor, Typography, Editor } from '@/components/common'
+import { Box, Button, Typography } from '@/components/common'
 import { EditorForm, InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
-import { CreateCurriculum, Curriculum, EnumContactPreference, EnumEducationSituation, Experience } from '@/services/api/curriculum/types'
+import { CreateCurriculum, EnumContactPreference, EnumEducationLevel, EnumEducationSituation, Experience } from '@/services/api/curriculum/types'
 import { GetCityResponse, GetCountryResponse } from '@/services/ninja/places/types'
 
+import { placeServices } from '@/services/local-api/places'
+import { ContactPreference } from '../contact-preference'
+import { EducationHistory } from '../education-history'
 import { EmploymentHistory } from '../employment-history'
 import * as Styles from './styles'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { curriculumValidationSchema } from './validations'
-import { ContactPreference } from '../contact-preference'
-import { placeServices } from '@/services/local-api/places'
-import { EducationHistory } from '../education-history'
 
 export const baseEmployment: Experience = {
   employer: '',
@@ -30,8 +30,9 @@ export const baseEducation: CreateCurriculum['educations'] = [{
   initial_date: '',
   institution_name: '',
   is_main: false,
-  level: '',
-  situation: EnumEducationSituation.notInform
+  level: EnumEducationLevel.highSchool,
+  situation: EnumEducationSituation.notInform,
+  title: ''
 }]
 
 export function Form () {
@@ -42,7 +43,7 @@ export function Form () {
     watch,
     formState: { errors }
   } = useForm<CreateCurriculum>({
-    // resolver: yupResolver(curriculumValidationSchema),
+    resolver: yupResolver(curriculumValidationSchema),
     defaultValues: {
       experiences: [baseEmployment]
     }
@@ -99,9 +100,6 @@ export function Form () {
     if (value.length > 3) getCountries(value)
   }
 
-
-
-  
   return (
     <Styles.Container>
       <Styles.Form onSubmit={handleSubmit(onSubmit)}>

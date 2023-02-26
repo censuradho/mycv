@@ -4,6 +4,8 @@ import * as y from 'yup'
 const experienceSchemaValidation = y.object({
   employer: y.string().required(FORM_ERROR_MESSAGES.required),
   title: y.string().required(FORM_ERROR_MESSAGES.required),
+  description: y.string().required(FORM_ERROR_MESSAGES.required),
+  is_main: y.boolean(),
   initial_date: y
     .date()
     .required(FORM_ERROR_MESSAGES.required)
@@ -12,7 +14,21 @@ const experienceSchemaValidation = y.object({
     .date()
     .required(FORM_ERROR_MESSAGES.required)
     .typeError(FORM_ERROR_MESSAGES.invalid),
-  description: y.string().required(FORM_ERROR_MESSAGES.required),
+})
+
+const educationValidationSchema = y.object({
+  title: y.string().required(FORM_ERROR_MESSAGES.required),
+  level: y.string().required(FORM_ERROR_MESSAGES.required),
+  institution_name: y.string().required(FORM_ERROR_MESSAGES.required),
+  situation: y.string().required(FORM_ERROR_MESSAGES.required),
+  initial_date: y
+    .date()
+    .required(FORM_ERROR_MESSAGES.required)
+    .typeError(FORM_ERROR_MESSAGES.invalid),
+  final_date: y
+    .date()
+    .required(FORM_ERROR_MESSAGES.required)
+    .typeError(FORM_ERROR_MESSAGES.invalid),
   is_main: y.boolean(),
 })
 
@@ -25,5 +41,6 @@ export const curriculumValidationSchema = y.object({
   first_name: y.string().required(FORM_ERROR_MESSAGES.required),
   last_name: y.string().required(FORM_ERROR_MESSAGES.required),
   is_pcd: y.boolean(),
-  experiences: y.array().of(experienceSchemaValidation).nullable()
+  experiences: y.array().of(experienceSchemaValidation).nullable(),
+  educations: y.array().of(educationValidationSchema).nullable()
 })
