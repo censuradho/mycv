@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Box, Button, Container, Typography } from '@/components/common'
@@ -26,6 +26,7 @@ import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
 import { curriculumService } from '@/services/api/curriculum'
 import { useToast } from '@/context'
+import { CurriculumFormProps } from './types'
 
 export const baseEmployment: CreateCurriculum['experiences'] = [{
   employer: '',
@@ -63,15 +64,19 @@ export const basicPortfolio: CreateCurriculum['portfolios'] = [{
   name: ''
 }]
 
-export function Form () {
+export function Form (props: CurriculumFormProps) {
+  const { defaultValue } = props
+
   const { 
     register,
     control,
     handleSubmit,
     watch,
+    reset,
     formState: { errors }
   } = useForm<CreateCurriculum>({
-    resolver: yupResolver(curriculumValidationSchema)
+    resolver: yupResolver(curriculumValidationSchema),
+    ...(defaultValue && { defaultValues: defaultValue })
   })
 
   const { onNotify } = useToast()
@@ -141,6 +146,12 @@ export function Form () {
 
     if (value.length > 3) getCountries(value)
   }
+
+  useEffect(() => {
+    if (!defaultValue) return;
+
+    reset(defaultValue)
+  }, [defaultValue])
 
   return (
     <Styles.Container>
