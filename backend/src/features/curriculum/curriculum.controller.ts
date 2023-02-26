@@ -36,4 +36,9 @@ export class CurriculumController {
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return this.service.avatarUpload(file)
   }
+
+  @Get('skills')
+  async findAllSkillsByName(@Query('name') name: string) {
+    return await this.service.findAllSkillsByName(name)
+  }
 }

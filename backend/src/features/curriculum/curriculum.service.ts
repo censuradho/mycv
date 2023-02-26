@@ -246,4 +246,14 @@ export class CurriculumService {
   async avatarUpload(file: Express.Multer.File) {
     await this.avatar.upload(file, this.request.user.id)
   }
+
+  async findAllSkillsByName(name: string) {
+    return await this.prisma.skill.findMany({
+      where: {
+        name: {
+          startsWith: name,
+        },
+      },
+    })
+  }
 }
