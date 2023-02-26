@@ -41,8 +41,8 @@ export const Editor = memo(forwardRef<any, EditorProps>((props) => {
       <Styles.Content>
         <ToolBar editor={editor} />
         <Styles.Editor id={id} editor={editor} />
-        <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
       </Styles.Content>
+      <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
     </Styles.Container>
   )
 }))

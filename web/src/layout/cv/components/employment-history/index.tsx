@@ -30,8 +30,6 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
 
   const renderFields = fields.map((value, index) => {
     const _value = value as any
-
-   
     return (
       <Box key={_value._id} alignItems="flexStart" gap={0.1}>
         <AccordionView 
@@ -51,12 +49,14 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
                 id={`experience.${index}.title`}
                 register={register(`experiences.${index}.title`)}
                 name={`experiences.${index}.title`}
+                errorMessage={errors?.[index]?.title?.message}
               />
               <InputForm 
                 label="Nome da empresa"
                 fullWidth
                 register={register(`experiences.${index}.employer`)}
                 name={`experiences.${index}.employer`}
+                errorMessage={errors?.[index]?.employer?.message}
               />
             </Box>
             <SwitchForm
@@ -87,6 +87,8 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
               label="Descrição"
               name={`experiences.${index}.description`}
               control={control}
+              errorMessage={errors?.[index]?.description?.message}
+
             />
           </Styles.Container>
         </AccordionView>

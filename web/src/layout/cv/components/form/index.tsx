@@ -224,7 +224,7 @@ export function Form () {
           <EmploymentHistory 
             control={control}
             register={register}
-            errors={errors}
+            errors={errors?.experiences}
           />
         </Box>
         <Button>Submit</Button>
