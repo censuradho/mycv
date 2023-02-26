@@ -136,50 +136,10 @@ export class CurriculumService {
     })
   }
 
-  async me(query?: QueryDto) {
+  async me() {
     return this.prisma.curriculum.findFirst({
       where: {
-        AND: [
-          {
-            ...(query?.q && {
-              OR: [
-                {
-                  address: {
-                    OR: [
-                      {
-                        city: {
-                          startsWith: query?.q,
-                        },
-                      },
-                      {
-                        country: {
-                          startsWith: query?.q,
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  languages: {
-                    some: {
-                      name: {
-                        startsWith: query?.q,
-                      },
-                    },
-                  },
-                },
-                {
-                  public_email: {
-                    startsWith: query.q,
-                  },
-                },
-              ],
-            }),
-          },
-          {
-            user_id: this.request.user.id,
-          },
-        ],
+        user_id: this.request.user.id,
       },
       include: {
         address: true,

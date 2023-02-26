@@ -1,7 +1,7 @@
 
 export type CreateEntityOmit<T> = Omit<T, 'id' | 'created_at' | 'updated_at'>
 
-enum CivilState {
+export enum CivilState {
   doNotInform = 'doNotInform',
   married = 'married',
   single = 'single',

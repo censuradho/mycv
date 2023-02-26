@@ -22,8 +22,8 @@ export class CurriculumController {
   }
 
   @Get('me')
-  async me(@Query() query: QueryDto) {
-    return await this.service.me(query)
+  async me() {
+    return await this.service.me()
   }
 
   @Get()

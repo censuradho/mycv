@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Box, Button, Container, Typography } from '@/components/common'
-import { EditorForm, InputForm } from '@/components/common/hook-form'
+import { EditorForm, InputForm, SelectForm, SwitchForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
 import {
+  CivilState,
   CreateCurriculum, EnumContactPreference,
   EnumEducationLevel,
   EnumEducationSituation,
@@ -23,6 +24,8 @@ import { Portfolios } from '../portfolio'
 import { Skills } from '../skills'
 import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
+import { curriculumService } from '@/services/api/curriculum'
+import { useToast } from '@/context'
 
 export const baseEmployment: CreateCurriculum['experiences'] = [{
   employer: '',
@@ -71,6 +74,8 @@ export function Form () {
     resolver: yupResolver(curriculumValidationSchema)
   })
 
+  const { onNotify } = useToast()
+
   const [searchCity, setSearchCity] = useState('')
   const [searchCountry, setSearchCountry] = useState('')
 
@@ -113,7 +118,10 @@ export function Form () {
   ])
 
   const onSubmit = async (data: any) => {
-    console.log(data)
+    await curriculumService.create(data)
+    onNotify({
+      title: 'Salvo com sucesso ✅'
+    })
   }
 
   const handleSearchCity = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,14 +149,46 @@ export function Form () {
           <Box flexDirection="column" gap={2}>
             <Styles.SectionTitle>Informações pessoais</Styles.SectionTitle>
             <Box flexDirection="column" gap={1}>
-              <InputForm 
-                label="Ocupação"
-                fullWidth
-                textHelper="Add seu cargo como ‘Senior Marketer’ ou ‘Sales Executive’ para que você está aplicando"
-                register={register('title')}
-                placeholder="ex Software Developer"
-                errorMessage={errors?.title?.message}
-              />
+              <Box 
+                gap={1}
+                flexDirection={{
+                  '@initial': 'column',
+                  '@table-min': 'row'
+                }}
+              >
+                <InputForm 
+                  label="Ocupação"
+                  fullWidth
+                  textHelper="Add seu cargo como ‘Senior Marketer’ ou ‘Sales Executive’ para que você está aplicando"
+                  register={register('title')}
+                  placeholder="ex Software Developer"
+                  errorMessage={errors?.title?.message}
+                />
+                <SelectForm
+                  label="Estado civil"
+                  control={control}
+                  name="civil_state"
+                  options={[
+                    {
+                      label: 'Não informar',
+                      value: CivilState.doNotInform
+                    },
+                    {
+                      label: 'Solteiro',
+                      value: CivilState.single
+                    },
+                    {
+                      label: 'Casado',
+                      value: CivilState.married
+                    },
+                    {
+                      label: 'Divorciado',
+                      value: CivilState.divorced
+                    },
+                  ]}
+                  fullWidth
+                />
+              </Box>
               <Box 
                 gap={1}
                 flexDirection={{

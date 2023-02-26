@@ -4,7 +4,7 @@ export const paths = {
     me: '/cv/@me'
   },
   auth: {
-    signIn: 'login',
+    signIn: '/auth/login',
     signUp: 'sign-up',
     sendConfirmation: '/auth/email/send-confirmation',
     resetPassword: '/auth/reset-password/new',

@@ -52,6 +52,7 @@ import {
   MdcClockFast, MdcPokerChip, MdcWeb, MdcWebBox
 } from '@meronex/icons/mdc';
 import { MdAttachMoney } from '@meronex/icons/md';
+import { GrWheelchair }  from '@meronex/icons/gr';
 
 export const icons = {
   add: AiOutlinePlus,
@@ -114,5 +115,6 @@ export const icons = {
   listUl: BsListUl,
   behance: FaBehanceSquare,
   pinterest: EnPinterest,
-  paperLine: RiNewspaperLine
+  paperLine: RiNewspaperLine,
+  wheelChair: GrWheelchair
 }
