@@ -12,9 +12,12 @@ import {
   BisDownArrow, BisFilePdf, BisReport, BisShareAlt, BisUpArrow
 } from '@meronex/icons/bi';
 import {
-  EnLocationPin
+  EnLinkedin,
+  EnLocationPin,
+  EnPinterest
 } from '@meronex/icons/en';
 import {
+  FaBehanceSquare,
   FaBox,
   FaDatabase, FaOpencart, FaStore, FaSuitcase, FaTelegramPlane
 } from '@meronex/icons/fa';
@@ -46,7 +49,7 @@ import {
   CgGym, CgMenuLeft
 } from '@meronex/icons/cg/';
 import {
-  MdcClockFast, MdcPokerChip, MdcWeb
+  MdcClockFast, MdcPokerChip, MdcWeb, MdcWebBox
 } from '@meronex/icons/mdc';
 import { MdAttachMoney } from '@meronex/icons/md';
 
@@ -108,6 +111,7 @@ export const icons = {
   underline: BsTypeUnderline,
   lineThrough: BsTypeStrikethrough,
   listOl: BiListOl,
-  listUl: BsListUl
+  listUl: BsListUl,
+  behance: FaBehanceSquare,
+  pinterest: EnPinterest,
 }
-

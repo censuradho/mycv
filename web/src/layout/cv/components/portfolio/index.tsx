@@ -1,4 +1,4 @@
-import { Box, ButtonIcon } from '@/components/common'
+import { Box, ButtonIcon, IconPicker } from '@/components/common'
 import { InputForm, SelectForm } from '@/components/common/hook-form'
 import { EnumLanguageLevel } from '@/services/api/curriculum/types'
 import { useFieldArray } from 'react-hook-form'
@@ -61,6 +61,7 @@ export function Portfolios (props: SkillsProps) {
                 errorMessage={errors?.[index]?.link?.message}
               />
             </Box>
+            <IconPicker label="Icone" />
           </Styles.Container>
         </AccordionView>
         <ButtonIcon 
