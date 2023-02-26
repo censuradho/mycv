@@ -1,7 +1,7 @@
 import { styled } from 'stitches.config'
 
 export const Container = styled('div', {
-  padding: '0 1rem'
+  padding: '4rem 1rem'
 })
 
 export const Form = styled('form', {})

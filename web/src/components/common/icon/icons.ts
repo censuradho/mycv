@@ -28,7 +28,7 @@ import {
   LogoWhatsapp
 } from '@meronex/icons/ios';
 import {
-  RiFileCopyLine, RiNavigationLine, RiShareBoxLine
+  RiFileCopyLine, RiNavigationLine, RiNewspaperLine, RiShareBoxLine
 } from '@meronex/icons/ri';
 import {
   VscMenu
@@ -114,4 +114,5 @@ export const icons = {
   listUl: BsListUl,
   behance: FaBehanceSquare,
   pinterest: EnPinterest,
+  paperLine: RiNewspaperLine
 }
