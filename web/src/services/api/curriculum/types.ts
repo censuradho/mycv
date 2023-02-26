@@ -1,5 +1,5 @@
 
-export type CreateEntityOmit<T> = Omit<T, 'id' | 'created_at' | 'updated_at'>
+export type CreateEntityOmit<T> = Omit<T, 'id' | 'created_at' | 'updated_at' | 'slug'>
 
 export enum CivilState {
   doNotInform = 'doNotInform',
@@ -102,6 +102,7 @@ interface Portfolio {
 export interface Curriculum {
   id: string
   views: number
+  slug: string
   searchable: boolean
   civil_state: keyof typeof CivilState
   title: string

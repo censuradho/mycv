@@ -41,9 +41,9 @@ export class CurriculumController {
   }
 
   @IsPublic()
-  @Get(':id')
-  async findById(@Param('id') id: string) {
-    return await this.service.findById(id)
+  @Get(':slug')
+  async findBySlug(@Param('slug') id: string) {
+    return await this.service.findBySlug(id)
   }
 
   @Post('/avatar/upload')

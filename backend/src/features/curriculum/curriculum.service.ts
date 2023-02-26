@@ -155,10 +155,10 @@ export class CurriculumService {
     })
   }
 
-  async findById(id: string) {
+  async findBySlug(slug: string) {
     return this.prisma.curriculum.findUnique({
       where: {
-        id,
+        slug,
       },
       include: {
         address: true,
@@ -225,7 +225,7 @@ export class CurriculumService {
   async findAll() {
     return this.prisma.curriculum.findMany({
       select: {
-        id: true,
+        slug: true,
       },
     })
   }

@@ -10,17 +10,17 @@ function me () {
 }
 
 function findAll () {
-  return api.get<Array<{ id: string }>>('/curriculum/all')
+  return api.get<Array<{ slug: string }>>('/curriculum/all')
   // http://localhost:3000/cv/86363fe2-d2d1-4e20-a071-23d481c21c2c
 }
 
-function findById (id: string) {
-  return api.get<Curriculum>(`/curriculum/${id}`)
+function findBySlug (slug: string) {
+  return api.get<Curriculum>(`/curriculum/${slug}`)
 }
 
 export const curriculumService = {
   create,
   me,
   findAll,
-  findById
+  findBySlug
 }

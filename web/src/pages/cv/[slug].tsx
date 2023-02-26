@@ -6,11 +6,10 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 export const getStaticPaths: GetStaticPaths = async () => {
 
   const { data } = await curriculumService.findAll()
-  console.log('asdasdasd')
 
   const paths = data.map((value) => ({
     params: {
-      id: value.id
+      slug: value.slug
     }
   }))
 
@@ -21,9 +20,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<CvPerfilProps> = async (context) => {
-  const { id } = context?.params || {}
+  const { slug } = context?.params || {}
 
-  const { data } = await curriculumService.findById(id as string)
+  const { data } = await curriculumService.findBySlug(slug as string)
 
   return {
     props: {
@@ -36,6 +35,7 @@ export const getStaticProps: GetStaticProps<CvPerfilProps> = async (context) => 
 
 
 export default function CvPerfilPage (props: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log(props)
   return (
     <CvPerfilLayout {...props} />
   )
