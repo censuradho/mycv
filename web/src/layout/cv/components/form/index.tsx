@@ -6,7 +6,7 @@ import { Box, Button, MarkdownEditor, Typography, Editor } from '@/components/co
 import { EditorForm, InputForm } from '@/components/common/hook-form'
 import { AutoCompleteForm } from '@/components/common/hook-form/auto-complete'
 import { useDebounceCallback } from '@/hooks'
-import { CreateCurriculum, EnumContactPreference, Experience } from '@/services/api/curriculum/types'
+import { CreateCurriculum, Curriculum, EnumContactPreference, Experience } from '@/services/api/curriculum/types'
 import { GetCityResponse, GetCountryResponse } from '@/services/ninja/places/types'
 
 import { EmploymentHistory } from '../employment-history'
@@ -14,6 +14,7 @@ import * as Styles from './styles'
 import { curriculumValidationSchema } from './validations'
 import { ContactPreference } from '../contact-preference'
 import { placeServices } from '@/services/local-api/places'
+import { EducationHistory } from '../education-history'
 
 export const baseEmployment: Experience = {
   employer: '',
@@ -23,6 +24,15 @@ export const baseEmployment: Experience = {
   is_main: false,
   description: '',
 }
+
+export const baseEducation: CreateCurriculum['educations'] = [{
+  final_date: '',
+  initial_date: '',
+  institution_name: '',
+  is_main: false,
+  level: '',
+  situation: ''
+}]
 
 export function Form () {
   const { 
@@ -65,7 +75,7 @@ export function Form () {
     value: country.name
   }))
 
-  const experiences = watch('experiences')
+  const [experiences, educations] = watch(['experiences', 'educations'])
 
   const onSubmit = async (data: any) => {
     console.log(data)
@@ -231,6 +241,18 @@ export function Form () {
             register={register}
             errors={errors?.experiences}
             experiences={experiences}
+          />
+          <Box flexDirection="column" gap={0.5}>
+            <Styles.SectionTitle>Educação</Styles.SectionTitle>
+            <Typography as="p" size="xsm">
+              Uma educação variada em seu currículo resume o valor que seu aprendizado e experiência trarão para o trabalho.
+            </Typography>
+          </Box>
+          <EducationHistory 
+            control={control}
+            register={register}
+            errors={errors?.educations}
+            data={educations}
           />
         </Box>
         <Button>Submit</Button>

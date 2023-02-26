@@ -27,6 +27,14 @@ interface Address {
   country: string
 }
 
+interface Education {
+  institution_name: string
+  situation: string
+  initial_date: string
+  final_date: string
+  level: string
+  is_main: boolean
+}
 
 
 export interface Curriculum {
@@ -44,6 +52,7 @@ export interface Curriculum {
   is_pcd: boolean
   experiences?: Array<Experience>
   address?: Address
+  educations?: Array<Education>
 }
 
 export interface CreateCurriculum extends Omit<Curriculum,

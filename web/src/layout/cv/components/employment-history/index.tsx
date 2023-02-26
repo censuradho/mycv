@@ -1,4 +1,4 @@
-import { Box, ButtonIcon } from "@/components/common";
+import { Box, ButtonIcon, Typography } from "@/components/common";
 import { DatePickerForm, EditorForm, InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
@@ -10,6 +10,7 @@ import { SwitchForm } from "@/components/common/hook-form/switch";
 import { format } from "@/lib/date-fns";
 import { baseEmployment } from "../form";
 import * as Styles from './styles';
+import { SectionTitle } from "../form/styles";
 
 export function EmploymentHistory (props: EmploymentHistoryProps) {
   const {
