@@ -53,6 +53,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
         <AccordionView 
           title={title.trim() || '(Não especificado)'}
           subTitle={fromTo.trim()}
+          defaultOpen={index === 0}
         >
           <Styles.Container>
             <Box

@@ -40,6 +40,7 @@ export function Portfolios (props: SkillsProps) {
       <Box key={_value._id} alignItems="flexStart" gap={0.1}>
         <AccordionView
           title={current?.name || '(Não especificado)'}
+          defaultOpen={index === 0}
         >
           <Styles.Container>
             <Box

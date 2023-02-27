@@ -8,11 +8,12 @@ export function AccordionView (props: PropsWithChildren<AccordionViewProps>) {
   const {
     children,
     title,
-    subTitle
+    subTitle,
+    defaultOpen
   } = props
 
   return (
-    <Styles.Root type="single" collapsible>
+    <Styles.Root type="single" collapsible defaultValue={defaultOpen ? 'item' : ''}>
       <Styles.Item value="item">
         <Styles.Header>
           <Styles.Trigger>
