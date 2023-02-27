@@ -69,10 +69,18 @@ export class UpdateCurriculumDto extends CreateCurriculumDto {
   portfolios: UpdatePortfolioDto[]
 
   @IsOptional()
+  @IsString({ each: true })
+  portfoliosToDelete: string[]
+
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => UpdateExperience)
   @IsArray()
   experiences: UpdateExperience[]
+
+  @IsOptional()
+  @IsString({ each: true })
+  experiencesToDelete: string[]
 
   @IsOptional()
   @ValidateNested({ each: true })
@@ -81,10 +89,18 @@ export class UpdateCurriculumDto extends CreateCurriculumDto {
   educations: UpdateEducation[]
 
   @IsOptional()
+  @IsString({ each: true })
+  educationsToDelete: string[]
+
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => UpdateLanguage)
   @IsArray()
   languages: UpdateLanguage[]
+
+  @IsOptional()
+  @IsString({ each: true })
+  languagesToDelete: string[]
 
   @IsOptional()
   @ValidateNested({ each: true })
@@ -93,13 +109,25 @@ export class UpdateCurriculumDto extends CreateCurriculumDto {
   links: UpdateLink[]
 
   @IsOptional()
+  @IsString({ each: true })
+  linksToDelete: string[]
+
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => UpdateSkill)
   @IsArray()
   skills: UpdateSkill[]
 
   @IsOptional()
+  @IsString({ each: true })
+  skillsToDelete: string[]
+
+  @IsOptional()
   @ValidateNested()
   @Type(() => UpdateAddress)
   address: UpdateAddress
+
+  @IsOptional()
+  @IsString()
+  addressToDelete: string
 }

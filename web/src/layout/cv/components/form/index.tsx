@@ -123,6 +123,13 @@ export function Form (props: CurriculumFormProps) {
   ])
 
   const onSubmit = async (data: any) => {
+    if (defaultValue) {
+      onNotify({
+        title: 'Salvo com sucesso ✅'
+      })
+      return await curriculumService.update(data)
+    }
+    
     await curriculumService.create(data)
     onNotify({
       title: 'Salvo com sucesso ✅'

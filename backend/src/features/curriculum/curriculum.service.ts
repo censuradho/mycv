@@ -151,32 +151,50 @@ export class CurriculumService {
       links = [],
       skills = [],
       languages = [],
+      addressToDelete,
+      linksToDelete = [],
+      skillsToDelete = [],
+      educationsToDelete = [],
+      experiencesToDelete = [],
+      languagesToDelete = [],
+      portfoliosToDelete = [],
     } = payload
 
-    const portfolioIds = portfolios
-      .filter((value) => value)
-      .map((value) => value.id)
+    const portfolioIds = [
+      ...portfolios.map((value) => value.id),
+      ...portfoliosToDelete,
+    ].filter((value) => value)
 
-    const educationIds = educations
-      .filter((value) => value)
-      .map((value) => value.id)
+    const educationIds = [
+      ...educations.map((value) => value.id),
+      ...educationsToDelete,
+    ].filter((value) => value)
 
-    const experienceIds = experiences
-      .filter((value) => value)
-      .map((value) => value.id)
+    const experienceIds = [
+      ...experiences.map((value) => value.id),
+      ...experiencesToDelete,
+    ].filter((value) => value)
 
-    const linkIds = links.map((value) => value.id).filter((value) => value)
+    const linkIds = [
+      ...links.map((value) => value.id),
+      ...linksToDelete,
+    ].filter((value) => value)
 
-    const skillIds = skills.map((value) => value.id).filter((value) => value)
+    const skillIds = [
+      ...skills.map((value) => value.id),
+      ...skillsToDelete,
+    ].filter((value) => value)
 
-    const languageIds = languages
-      .map((value) => value.id)
-      .filter((value) => value)
+    const languageIds = [
+      ...languages.map((value) => value.id),
+      ...languagesToDelete,
+    ].filter((value) => value)
 
     const curriculumExist = await this.prisma.curriculum.findFirst({
       where: {
         AND: [
           { id },
+          ...(address && [{ address: { id: addressToDelete } }]),
           ...(portfolios && [
             {
               portfolios: {
@@ -221,17 +239,17 @@ export class CurriculumService {
               },
             },
           ]),
-          ...(skills && [
-            {
-              skills: {
-                every: {
-                  id: {
-                    in: skillIds,
-                  },
-                },
-              },
-            },
-          ]),
+          // ...(skills && [
+          //   {
+          //     skills: {
+          //       every: {
+          //         id: {
+          //           in: skillIds,
+          //         },
+          //       },
+          //     },
+          //   },
+          // ]),
           ...(languages && [
             {
               languages: {
@@ -436,6 +454,48 @@ export class CurriculumService {
                 id,
               },
             },
+          },
+        })
+      ),
+      ...experiencesToDelete.map((value) =>
+        this.prisma.experience.delete({
+          where: {
+            id: value || '',
+          },
+        })
+      ),
+      ...linksToDelete.map((value) =>
+        this.prisma.link.delete({
+          where: {
+            id: value || '',
+          },
+        })
+      ),
+      ...skillsToDelete.map((value) =>
+        this.prisma.skill.delete({
+          where: {
+            id: value || '',
+          },
+        })
+      ),
+      ...educationsToDelete.map((value) =>
+        this.prisma.education.delete({
+          where: {
+            id: value || '',
+          },
+        })
+      ),
+      ...languagesToDelete.map((value) =>
+        this.prisma.language.delete({
+          where: {
+            id: value || '',
+          },
+        })
+      ),
+      ...portfoliosToDelete.map((value) =>
+        this.prisma.portfolio.delete({
+          where: {
+            id: value,
           },
         })
       ),

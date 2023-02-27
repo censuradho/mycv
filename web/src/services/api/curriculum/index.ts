@@ -18,9 +18,14 @@ function findBySlug (slug: string) {
   return api.get<Curriculum>(`/curriculum/${slug}`)
 }
 
+function update (payload: Curriculum) {
+  return api.put('/curriculum', payload)
+}
+
 export const curriculumService = {
   create,
   me,
   findAll,
-  findBySlug
+  findBySlug,
+  update
 }

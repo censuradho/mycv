@@ -139,3 +139,5 @@ export interface CreateCurriculum extends Omit<Curriculum,
   languages?: Array<CreateEntityOmit<Language>>
   portfolios?: Array<CreateEntityOmit<Portfolio>>
 }
+
+
