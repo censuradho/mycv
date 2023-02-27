@@ -6,7 +6,7 @@ export const Container = styled('div', {
   flexDirection: 'column-reverse',
   gap: '2rem',
 
-  '@laptops-min': {
+  '@table-min': {
     flexDirection: 'row',
 
   }
@@ -45,4 +45,24 @@ export const JobDescription = styled('div', {
     fontSize: '.875rem',
     fontWeight: 400
   }
+})
+
+export const SkillList = styled('ul', {
+  listStyleType: 'none',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '0.5rem',
+  
+  li: {
+    color: '$heading',
+    fontSize: '12px',
+    fontWeight: 600
+  }
+})
+
+
+export const Link = styled('a', {
+  fontWeight: 400,
+  textDecoration: 'underline',
+  fontSize: '14px'
 })

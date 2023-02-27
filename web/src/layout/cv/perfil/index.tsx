@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@/components/common'
+import { Box, Container, Icon, Typography } from '@/components/common'
 import { format } from '@/lib/date-fns'
 
 import * as Styles from './styles'
@@ -63,6 +63,40 @@ export function CvPerfilLayout (props: CvPerfilProps) {
   }
 
 
+  const renderPortfolios = () => {
+    if (data?.portfolios?.length === 0) return null
+
+    const renderItems = data?.portfolios?.map((value, index) => {
+
+      const { name, link, icon } = value
+
+       
+      return (
+        <li key={index}>
+          <Box  gap={0.3}>
+            <Icon name={icon as any} />
+            <Styles.Link target="_blank" href={link}>{name}</Styles.Link>
+          </Box>
+        </li>
+      )
+    })
+
+    return (
+      <Styles.Section>
+        <Styles.SectionTitle>Portfolio</Styles.SectionTitle>
+        {renderItems}
+      </Styles.Section>
+    )
+  }
+
+
+  const renderSkills = data?.skills?.map((value, index) => (
+    <li key={value.id}>
+      {value.name}
+    </li>
+  ))
+
+
   return (
     <Container>
       <Styles.Container>
@@ -81,19 +115,23 @@ export function CvPerfilLayout (props: CvPerfilProps) {
               >
                 {data?.title}
               </Typography>
-              <Styles.Presentation dangerouslySetInnerHTML={{ __html: data?.presentation}} />
-          
+              <Styles.Presentation dangerouslySetInnerHTML={{ __html: data?.presentation.replace(/<br\>/g, '')}} />
             </Box>
           </Box>
           <Styles.List>
             {renderExperiences()}
             {renderEducation()}
+            {renderPortfolios()}
           </Styles.List> 
         </Box>
-        <Box flexDirection="column">
-          <Typography as="p" fontWeight="400" size="xsm" color="heading">{`${data?.address?.country} ${data?.address?.city ? ', ' + data?.address?.city : ''}`}</Typography>
-          <Typography as="p" fontWeight="600" size="xsm" color="heading">{data?.phone}</Typography>
-          <Typography as="p" fontWeight="600" size="xsm" color="heading">{data?.public_email}</Typography>
+        <Box flexDirection="column" style={{ minWidth: '200px' }}>
+          <Typography as="p" size="xsm" color="heading">{`${data?.address?.country} ${data?.address?.city ? ', ' + data?.address?.city : ''}`}</Typography>
+          <Typography as="p" size="xsm" color="heading">{data?.phone}</Typography>
+          <Typography as="p" size="xsm" color="heading">{data?.public_email}</Typography>
+          <Box marginTop={2} flexDirection="column" >
+            <Styles.SectionTitle>Habilidades</Styles.SectionTitle>
+            <Styles.SkillList>{renderSkills}</Styles.SkillList>
+          </Box>
         </Box>
       </Styles.Container>
     </Container>

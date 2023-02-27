@@ -119,6 +119,7 @@ export interface Curriculum {
   educations?: Array<Education>
   portfolios?: Array<Portfolio>
   languages?: Array<Language>
+  skills?: Array<Skill>
 }
 
 type CreateEducation = CreateEntityOmit<Education>
@@ -139,6 +140,7 @@ export interface CreateCurriculum extends Omit<Curriculum,
   | 'experiences'
   | 'languages'
   | 'portfolios'
+  | 'skills'
 > {
   educations?: Array<CreateEducation>
   skills?: Array<CreateSkill>

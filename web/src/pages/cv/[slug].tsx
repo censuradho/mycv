@@ -1,3 +1,4 @@
+import { Head } from "@/components/common";
 import { CvPerfilLayout } from "@/layout/cv/perfil";
 import { CvPerfilProps } from "@/layout/cv/perfil/types";
 import { curriculumService } from "@/services/api/curriculum";
@@ -35,9 +36,14 @@ export const getStaticProps: GetStaticProps<CvPerfilProps> = async (context) => 
 
 
 export default function CvPerfilPage (props: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(props)
   return (
-    <CvPerfilLayout {...props} />
+    <>
+      <Head 
+        title={`${props.data?.first_name} ${props?.data?.last_name}`}
+        description={props?.data?.presentation.slice(0, 100)}
+      />
+      <CvPerfilLayout {...props} />
+    </>
   )
 }
 
