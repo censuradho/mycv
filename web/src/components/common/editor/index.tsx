@@ -1,14 +1,13 @@
 import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { forwardRef, memo } from 'react'
+import { forwardRef, memo, useEffect } from 'react'
 
 import { ToolBar } from './components'
 
-import { EditorProps } from './types'
 import * as Styles from './styles'
-import { Box } from '../box'
+import { EditorProps } from './types'
 
-export const Editor = memo(forwardRef<any, EditorProps>((props) => {
+export const Editor = forwardRef<any, EditorProps>((props, ref) => {
   const { 
     onChange, 
     value,
@@ -40,9 +39,9 @@ export const Editor = memo(forwardRef<any, EditorProps>((props) => {
       <Styles.Label htmlFor={id}>{label}</Styles.Label>
       <Styles.Content>
         <ToolBar editor={editor} />
-        <Styles.Editor id={id} editor={editor} />
+        <Styles.Editor ref={ref} id={id} editor={editor} />
       </Styles.Content>
       <Styles.ErrorMessage>{errorMessage}</Styles.ErrorMessage>
     </Styles.Container>
   )
-}))
+})

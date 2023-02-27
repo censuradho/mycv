@@ -19,7 +19,7 @@ export function DatePickerForm (props: DatePickerFormProps) {
         <DatePicker
           {...otherProps}
           {...field}
-          value={format(new Date(field.value), String(otherProps?.dateFormat) || 'dd/mm/yyyy')}
+          value={field.value && format(new Date(field.value), String(otherProps?.dateFormat) || 'dd/mm/yyyy')}
         />
       )}
     />

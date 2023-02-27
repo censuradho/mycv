@@ -129,8 +129,6 @@ export function Form (props: CurriculumFormProps) {
     value: country.name
   }))
 
-
-
   const onSubmit = async (data: any) => {
     if (defaultValue) {
       onNotify({
@@ -174,6 +172,8 @@ export function Form (props: CurriculumFormProps) {
     if (!defaultValue) return;
 
     reset(defaultValue)
+    setSearchCity(defaultValue?.address?.city || '')
+    setSearchCountry(defaultValue?.address?.country || '')
   }, [defaultValue, reset])
 
   return (
@@ -339,6 +339,7 @@ export function Form (props: CurriculumFormProps) {
             <EditorForm  
               name="presentation"
               control={control}
+              key={new Date().getTime()}
               errorMessage={errors.presentation?.message}
             />
             <Box flexDirection="column" gap={0.5}>
