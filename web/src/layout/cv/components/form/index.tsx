@@ -80,9 +80,24 @@ export function Form (props: CurriculumFormProps) {
   })
 
   const { onNotify } = useToast()
+  const [
+    experiences, 
+    educations,
+    skills,
+    languages,
+    portfolios,
+    address
+  ] = watch([
+    'experiences', 
+    'educations', 
+    'skills', 
+    'languages',
+    'portfolios',
+    'address'
+  ])
 
-  const [searchCity, setSearchCity] = useState('')
-  const [searchCountry, setSearchCountry] = useState('')
+  const [searchCity, setSearchCity] = useState(address?.city || '')
+  const [searchCountry, setSearchCountry] = useState(address?.country || '')
 
   const [cities, setCities] = useState<GetCityResponse[]>([])
   const [countries, setCountries] = useState<GetCountryResponse[]>([])
@@ -114,21 +129,8 @@ export function Form (props: CurriculumFormProps) {
     value: country.name
   }))
 
-  const [
-    experiences, 
-    educations,
-    skills,
-    languages,
-    portfolios
-  ] = watch([
-    'experiences', 
-    'educations', 
-    'skills', 
-    'languages',
-    'portfolios'
-  ])
 
-  console.log(languagesToDelete.length)
+
   const onSubmit = async (data: any) => {
     if (defaultValue) {
       onNotify({
@@ -175,8 +177,8 @@ export function Form (props: CurriculumFormProps) {
   }, [defaultValue, reset])
 
   return (
-    <Styles.Container>
-      <Container>
+    <Container>
+      <Styles.Container>
         <Styles.Form onSubmit={handleSubmit(onSubmit)}>
           <Box flexDirection="column" gap={2}>
             <Styles.SectionTitle>Informações pessoais</Styles.SectionTitle>
@@ -429,7 +431,7 @@ export function Form (props: CurriculumFormProps) {
             <Button fullWidth>Salvar</Button>
           </Box>
         </Styles.Form>
-      </Container>
-    </Styles.Container>
+      </Styles.Container>
+    </Container>
   )
 }

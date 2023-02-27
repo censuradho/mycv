@@ -7,6 +7,7 @@ export function AutoCompleteForm (props: AutoCompleteFormProps) {
     control,
     keyName,
     onSelect,
+    onChange,
     ...otherProps
   } = props
 
@@ -14,16 +15,23 @@ export function AutoCompleteForm (props: AutoCompleteFormProps) {
     <Controller
       control={control}
       name={otherProps.name}
-      render={({ field }) => (
-        <AutoComplete
-          getItemValue={(value: any) => keyName ? value[keyName] : value}
-          onSelect={(value, item) => {
-            field.onChange(value)
-            onSelect?.(value, item)
-          }}
-          {...otherProps}
-        />
-      )}
+      render={({ field }) => {
+
+        return (
+          <AutoComplete
+            getItemValue={(value: any) => keyName ? value[keyName] : value}
+            onSelect={(value, item) => {
+              field.onChange(value)
+              onSelect?.(value, item)
+            }}
+            onChange={(event, value) => {
+              field.onChange(value)
+              onChange?.(event, value)
+            }}
+            {...otherProps}
+          />
+        )
+      }}
     />
   )
 
