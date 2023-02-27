@@ -245,7 +245,6 @@ export class CurriculumService {
     }
 
     if (languagesToDelete) {
-      console.log(languagesToDelete)
       await this.prisma.$transaction(
         languagesToDelete.map((value) =>
           this.prisma.language.delete({

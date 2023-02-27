@@ -172,7 +172,7 @@ export function Form (props: CurriculumFormProps) {
     if (!defaultValue) return;
 
     reset(defaultValue)
-  }, [defaultValue])
+  }, [defaultValue, reset])
 
   return (
     <Styles.Container>
