@@ -12,7 +12,8 @@ export function Portfolios (props: SkillsProps) {
     control,
     register,
     errors,
-    data
+    data,
+    onRemove
   } = props
 
   const name = 'portfolios'
@@ -25,6 +26,11 @@ export function Portfolios (props: SkillsProps) {
     name,
     keyName: '_id'
   })
+
+  const handleRemove = (index: number, id?: string) => {
+    id && onRemove?.(id)
+    remove(index)
+  }
 
   const renderFields = fields.map((value, index) => {
     const _value = value as any
@@ -72,7 +78,7 @@ export function Portfolios (props: SkillsProps) {
           type="button"
           label="delete" 
           icon={{ name: 'delete' }}
-          onClick={() => remove(index)}
+          onClick={() => handleRemove(index, _value?.id)}
         />
       </Box>
     )

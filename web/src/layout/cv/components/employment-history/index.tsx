@@ -1,4 +1,4 @@
-import { Box, ButtonIcon, Typography } from "@/components/common";
+import { Box, ButtonIcon } from "@/components/common";
 import { DatePickerForm, EditorForm, InputForm } from "@/components/common/hook-form";
 import { useFieldArray } from "react-hook-form";
 
@@ -10,13 +10,13 @@ import { SwitchForm } from "@/components/common/hook-form/switch";
 import { format } from "@/lib/date-fns";
 import { baseEmployment } from "../form";
 import * as Styles from './styles';
-import { SectionTitle } from "../form/styles";
 
 export function EmploymentHistory (props: EmploymentHistoryProps) {
   const {
     control,
     register,
     errors,
+    onRemove,
     experiences
   } = props
 
@@ -33,6 +33,11 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
     keyName: '_id'
   })
 
+
+  const handleRemove = (index: number, id?: string) => {
+    id && onRemove?.(id)
+    remove(index)
+  }
 
   const renderFields = fields.map((value, index) => {
     const _value = value as any
@@ -117,7 +122,7 @@ export function EmploymentHistory (props: EmploymentHistoryProps) {
           type="button"
           label="delete" 
           icon={{ name: 'delete' }}
-          onClick={() => remove(index)}
+          onClick={() => handleRemove(index, _value?.id)}
         />
       </Box>
     )

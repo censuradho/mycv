@@ -126,8 +126,4 @@ export class UpdateCurriculumDto extends CreateCurriculumDto {
   @ValidateNested()
   @Type(() => UpdateAddress)
   address: UpdateAddress
-
-  @IsOptional()
-  @IsString()
-  addressToDelete: string
 }

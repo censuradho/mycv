@@ -1,5 +1,5 @@
 import { api } from "..";
-import { CreateCurriculum, Curriculum } from "./types";
+import { CreateCurriculum, Curriculum, UpdateCurriculum } from "./types";
 
 function create (payload: CreateCurriculum) {
   return api.post('/curriculum', payload)
@@ -18,7 +18,7 @@ function findBySlug (slug: string) {
   return api.get<Curriculum>(`/curriculum/${slug}`)
 }
 
-function update (payload: Curriculum) {
+function update (payload: UpdateCurriculum) {
   return api.put('/curriculum', payload)
 }
 

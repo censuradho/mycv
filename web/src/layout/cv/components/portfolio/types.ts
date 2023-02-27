@@ -6,4 +6,5 @@ export interface SkillsProps {
   errors?: any
   control: Control<any, any>
   data?: CreateCurriculum['portfolios']
+  onRemove?: (id: string) => void
 }

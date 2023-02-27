@@ -125,6 +125,13 @@ type CreateEducation = CreateEntityOmit<Education>
 type CreateSkill =  CreateEntityOmit<Skill>
 type CreateExperience =  CreateEntityOmit<Experience>
 
+export interface UpdateCurriculum extends Curriculum {
+  portfoliosToDelete?: string[]
+  experiencesToDelete?: string[]
+  educationsToDelete?: string[]
+  languagesToDelete?: string[]
+  skillsToDelete?: string[]
+}
 export interface CreateCurriculum extends Omit<Curriculum,
   'searchable'
   | 'views'
@@ -138,6 +145,7 @@ export interface CreateCurriculum extends Omit<Curriculum,
   experiences?: Array<CreateExperience>
   languages?: Array<CreateEntityOmit<Language>>
   portfolios?: Array<CreateEntityOmit<Portfolio>>
+
 }
 
 

@@ -6,4 +6,5 @@ export interface EmploymentHistoryProps {
   errors?: any
   control: Control<any, any>
   experiences?: CreateCurriculum['experiences']
+  onRemove?: (id: string) => void
 }

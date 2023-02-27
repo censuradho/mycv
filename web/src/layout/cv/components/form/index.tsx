@@ -87,6 +87,12 @@ export function Form (props: CurriculumFormProps) {
   const [cities, setCities] = useState<GetCityResponse[]>([])
   const [countries, setCountries] = useState<GetCountryResponse[]>([])
 
+  const [portfoliosToDelete, setPortfolioToDelete] = useState<string[]>([])
+  const [experiencesToDelete, setExperienceToDelete] = useState<string[]>([])
+  const [educationsToDelete, setEducationToDelete] = useState<string[]>([])
+  const [languagesToDelete, setLanguageToDelete] = useState<string[]>([])
+  const [skillsToDelete, setSkillsToDelete] = useState<string[]>([])
+
   const getCities = useDebounceCallback(async (cityName: string) => {
     const { data } = await placeServices.findByCityName(cityName)
     setCities(data)
@@ -122,12 +128,20 @@ export function Form (props: CurriculumFormProps) {
     'portfolios'
   ])
 
+  console.log(languagesToDelete.length)
   const onSubmit = async (data: any) => {
     if (defaultValue) {
       onNotify({
         title: 'Salvo com sucesso ✅'
       })
-      return await curriculumService.update(data)
+      return await curriculumService.update({
+        ...data,
+        ...(skillsToDelete.length > 0 && {skillsToDelete}),
+        ...(languagesToDelete.length > 0 && {languagesToDelete}),
+        ...(educationsToDelete.length > 0 && {educationsToDelete}),
+        ...(experiencesToDelete.length > 0 && {experiencesToDelete}),
+        ...(portfoliosToDelete.length > 0 && {portfoliosToDelete}),
+      })
     }
     
     await curriculumService.create(data)
@@ -334,6 +348,12 @@ export function Form (props: CurriculumFormProps) {
               register={register}
               errors={errors?.experiences}
               experiences={experiences}
+              onRemove={id => 
+                setExperienceToDelete(prevState => ([
+                  ...prevState,
+                  id
+                ]))
+              }
             />
             <Box flexDirection="column" gap={0.5}>
               <Styles.SectionTitle>Educação</Styles.SectionTitle>
@@ -346,6 +366,12 @@ export function Form (props: CurriculumFormProps) {
               register={register}
               errors={errors?.educations}
               data={educations}
+              onRemove={id => 
+                setEducationToDelete(prevState => ([
+                  ...prevState,
+                  id
+                ]))
+              }
             />
             <Box flexDirection="column" gap={0.5}>
               <Styles.SectionTitle>Habilidades</Styles.SectionTitle>
@@ -358,6 +384,12 @@ export function Form (props: CurriculumFormProps) {
               register={register}
               errors={errors?.educations}
               data={skills}
+              onRemove={id => 
+                setSkillsToDelete(prevState => ([
+                  ...prevState,
+                  id
+                ]))
+              }
             />
             <Box flexDirection="column" gap={0.5}>
               <Styles.SectionTitle>Idiomas</Styles.SectionTitle>
@@ -367,6 +399,12 @@ export function Form (props: CurriculumFormProps) {
               register={register}
               errors={errors?.languages}
               data={languages}
+              onRemove={id => 
+                setLanguageToDelete(prevState => ([
+                  ...prevState,
+                  id
+                ]))
+              }
             />
             <Box flexDirection="column" gap={0.5}>
               <Styles.SectionTitle>Portfólio</Styles.SectionTitle>
@@ -379,6 +417,12 @@ export function Form (props: CurriculumFormProps) {
               register={register}
               errors={errors?.portfolios}
               data={portfolios}
+              onRemove={id => 
+                setPortfolioToDelete(prevState => ([
+                  ...prevState,
+                  id
+                ]))
+              }
             />
           </Box>
           <Box marginTop={2}>

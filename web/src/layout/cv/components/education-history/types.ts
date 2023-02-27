@@ -6,4 +6,5 @@ export interface EducationHistoryProps {
   errors?: any
   control: Control<any, any>
   data?: CreateCurriculum['educations']
+  onRemove?: (id: string) => void
 }
