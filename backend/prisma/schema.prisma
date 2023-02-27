@@ -71,7 +71,10 @@ model Education {
   level String
   institution_name String
   situation String
+  title String
 
+  description String?
+  
   initial_date DateTime
   final_date DateTime?
 

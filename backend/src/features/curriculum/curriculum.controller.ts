@@ -6,6 +6,7 @@ import {
   Query,
   UseInterceptors,
   Param,
+  Put,
 } from '@nestjs/common'
 import { UploadedFile } from '@nestjs/common/decorators/http/route-params.decorator'
 import { FileInterceptor } from '@nestjs/platform-express'
@@ -13,6 +14,7 @@ import { IsPublic } from '../auth/decorators'
 import { CurriculumService } from './curriculum.service'
 import { CreateCurriculumDto } from './dto/create'
 import { QueryDto } from './dto/query'
+import { UpdateCurriculumDto } from './dto/update'
 
 @Controller('curriculum')
 export class CurriculumController {
@@ -44,6 +46,11 @@ export class CurriculumController {
   @Get(':slug')
   async findBySlug(@Param('slug') id: string) {
     return await this.service.findBySlug(id)
+  }
+
+  @Put()
+  async update(@Body() body: UpdateCurriculumDto) {
+    return await this.service.update(body)
   }
 
   @Post('/avatar/upload')

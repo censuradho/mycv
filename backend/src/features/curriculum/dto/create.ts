@@ -79,12 +79,19 @@ enum ContactPreference {
   email = 'email',
 }
 
-class Education {
+export class Education {
   @IsEnum(EducationLevel)
   level: EducationLevel
 
   @IsString()
   institution_name: string
+
+  @IsString()
+  title: string
+
+  @IsOptional()
+  @IsString()
+  description?: string
 
   @IsEnum(SituationEducation)
   situation: SituationEducation
@@ -100,7 +107,7 @@ class Education {
   is_main: boolean
 }
 
-class Experience {
+export class Experience {
   @IsString()
   employer: string
 
@@ -130,7 +137,7 @@ enum LanguageLevel {
   advanced = 'advanced',
   fluent = 'fluent',
 }
-class Language {
+export class Language {
   @IsString()
   name: string
 
@@ -144,12 +151,12 @@ class Language {
   writing: LanguageLevel
 }
 
-class Skill {
+export class Skill {
   @IsString()
   name: string
 }
 
-class Link {
+export class Link {
   @IsString()
   name: string
 
@@ -165,7 +172,7 @@ class Link {
   href: string
 }
 
-class Portfolio {
+export class Portfolio {
   @IsString()
   name: string
 
@@ -181,7 +188,7 @@ class Portfolio {
   description: string
 }
 
-class Address {
+export class Address {
   @IsString()
   country: string
 

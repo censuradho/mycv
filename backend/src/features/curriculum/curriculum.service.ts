@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { REQUEST } from '@nestjs/core'
 import { randomUUID } from 'crypto'
 import { PrismaService } from 'src/database/prisma.service'
@@ -8,6 +8,7 @@ import { AuthRequest } from '../auth/models'
 import { AvatarService } from '../avatar/avatar.service'
 import { CreateCurriculumDto } from './dto/create'
 import { QueryDto } from './dto/query'
+import { UpdateCurriculumDto } from './dto/update'
 import { CURRICULUM_ERRORS } from './errors'
 
 @Injectable()
@@ -102,6 +103,8 @@ export class CurriculumService {
               level: value?.level,
               institution_name: value?.institution_name,
               is_main: value?.is_main,
+              title: value?.title,
+              description: value?.description,
             })),
           },
         }),
@@ -136,6 +139,307 @@ export class CurriculumService {
         },
       },
     })
+  }
+
+  async update(payload: UpdateCurriculumDto) {
+    const {
+      id,
+      address,
+      portfolios = [],
+      educations = [],
+      experiences = [],
+      links = [],
+      skills = [],
+      languages = [],
+    } = payload
+
+    const portfolioIds = portfolios
+      .filter((value) => value)
+      .map((value) => value.id)
+
+    const educationIds = educations
+      .filter((value) => value)
+      .map((value) => value.id)
+
+    const experienceIds = experiences
+      .filter((value) => value)
+      .map((value) => value.id)
+
+    const linkIds = links.map((value) => value.id).filter((value) => value)
+
+    const skillIds = skills.map((value) => value.id).filter((value) => value)
+
+    const languageIds = languages
+      .map((value) => value.id)
+      .filter((value) => value)
+
+    const curriculumExist = await this.prisma.curriculum.findFirst({
+      where: {
+        AND: [
+          { id },
+          ...(portfolios && [
+            {
+              portfolios: {
+                every: {
+                  id: {
+                    in: portfolioIds,
+                  },
+                },
+              },
+            },
+          ]),
+          ...(educations && [
+            {
+              educations: {
+                every: {
+                  id: {
+                    in: educationIds,
+                  },
+                },
+              },
+            },
+          ]),
+          ...(experiences && [
+            {
+              experiences: {
+                every: {
+                  id: {
+                    in: experienceIds,
+                  },
+                },
+              },
+            },
+          ]),
+          ...(links && [
+            {
+              links: {
+                every: {
+                  id: {
+                    in: linkIds,
+                  },
+                },
+              },
+            },
+          ]),
+          ...(skills && [
+            {
+              skills: {
+                every: {
+                  id: {
+                    in: skillIds,
+                  },
+                },
+              },
+            },
+          ]),
+          ...(languages && [
+            {
+              languages: {
+                every: {
+                  id: {
+                    in: languageIds,
+                  },
+                },
+              },
+            },
+          ]),
+        ],
+      },
+    })
+
+    if (!curriculumExist)
+      throw new ForbiddenException(CURRICULUM_ERRORS.CURRICULUM_NOT_FOUND)
+
+    await this.prisma.$transaction([
+      this.prisma.curriculum.update({
+        where: {
+          id,
+        },
+        data: {
+          civil_state: payload?.civil_state,
+          contact_preference: payload?.contact_preference,
+          phone: payload?.phone,
+          presentation: payload?.presentation,
+          public_email: payload?.public_email,
+          is_pcd: payload?.is_pcd,
+          searchable: payload?.searchable,
+          title: payload.title,
+          first_name: payload.first_name,
+          last_name: payload.last_name,
+          ...(address && {
+            address: {
+              update: {
+                city: address.city,
+                country: address.country,
+                updated_at: new Date(),
+              },
+            },
+          }),
+        },
+      }),
+      ...portfolios.map((value) =>
+        this.prisma.portfolio.upsert({
+          where: {
+            id: value?.id || '',
+          },
+          update: {
+            description: value?.description,
+            icon: value?.icon,
+            link: value?.link,
+            name: value?.name,
+            updated_at: new Date(),
+          },
+          create: {
+            id: randomUUID(),
+            description: value?.description,
+            icon: value?.icon,
+            link: value?.link,
+            name: value?.name,
+            curriculum: {
+              connect: {
+                id,
+              },
+            },
+          },
+        })
+      ),
+      ...links.map((value) =>
+        this.prisma.link.upsert({
+          where: {
+            id: value?.id || '',
+          },
+          update: {
+            description: value?.description,
+            icon: value?.icon,
+            href: value?.href,
+            name: value?.name,
+            updated_at: new Date(),
+          },
+          create: {
+            id: randomUUID(),
+            description: value?.description,
+            icon: value?.icon,
+            href: value?.href,
+            name: value?.name,
+            curriculum: {
+              connect: {
+                id,
+              },
+            },
+          },
+        })
+      ),
+      ...languages.map((value) =>
+        this.prisma.language.upsert({
+          where: {
+            id: value?.id || '',
+          },
+          update: {
+            conversation: value?.conversation,
+            name: value?.name,
+            reading: value?.reading,
+            writing: value?.writing,
+            updated_at: new Date(),
+          },
+          create: {
+            id: randomUUID(),
+            conversation: value?.conversation,
+            name: value?.name,
+            reading: value?.reading,
+            writing: value?.writing,
+            curriculum: {
+              connect: {
+                id,
+              },
+            },
+          },
+        })
+      ),
+      ...educations.map((value) =>
+        this.prisma.education.upsert({
+          where: {
+            id: value?.id || '',
+          },
+          update: {
+            description: value?.description,
+            final_date: value?.final_date,
+            initial_date: value?.initial_date,
+            institution_name: value?.institution_name,
+            is_main: value?.is_main,
+            level: value?.level,
+            situation: value?.situation,
+            title: value?.title,
+            updated_at: new Date(),
+          },
+          create: {
+            id: randomUUID(),
+            description: value?.description,
+            final_date: value?.final_date,
+            initial_date: value?.initial_date,
+            institution_name: value?.institution_name,
+            is_main: value?.is_main,
+            level: value?.level,
+            situation: value?.situation,
+            title: value?.title,
+            curriculum: {
+              connect: {
+                id,
+              },
+            },
+          },
+        })
+      ),
+      ...skills.map((value) =>
+        this.prisma.skill.upsert({
+          where: {
+            id: value?.id || '',
+          },
+          update: {
+            name: value?.name,
+            updated_at: new Date(),
+          },
+          create: {
+            id: randomUUID(),
+            name: value?.name,
+            curriculum: {
+              connect: {
+                id,
+              },
+            },
+          },
+        })
+      ),
+      ...experiences.map((value) =>
+        this.prisma.experience.upsert({
+          where: {
+            id: value?.id || '',
+          },
+          update: {
+            description: value?.description,
+            employer: value?.employer,
+            final_date: value?.final_date,
+            initial_date: value?.initial_date,
+            is_main: value?.is_main,
+            title: value?.title,
+            updated_at: new Date(),
+          },
+          create: {
+            id: randomUUID(),
+            description: value?.description,
+            employer: value?.employer,
+            final_date: value?.final_date,
+            initial_date: value?.initial_date,
+            is_main: value?.is_main,
+            title: value?.title,
+            curriculum: {
+              connect: {
+                id,
+              },
+            },
+          },
+        })
+      ),
+    ])
   }
 
   async me() {

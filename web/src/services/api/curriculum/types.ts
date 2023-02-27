@@ -78,6 +78,7 @@ interface Education {
   final_date: string
   level: keyof typeof EnumEducationLevel
   is_main: boolean
+  description?: string
 }
 
 interface Skill {
